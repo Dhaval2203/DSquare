@@ -1,7 +1,8 @@
 'use client';
-import { Button, Input, Typography, Row, Col, Space } from 'antd';
+import { Button, Input, Typography, Row, Col } from 'antd';
 import { useState } from 'react';
 import { primaryColor, secondaryColor } from '../Utils/Colors';
+
 const { Title, Paragraph } = Typography;
 
 export default function Hero() {
@@ -19,89 +20,118 @@ export default function Hero() {
                 minHeight: '100vh',
                 display: 'flex',
                 alignItems: 'center',
-                background: '#f5f6fa', // softer modern background
-                padding: '0 24px',
+                background: '#f5f6fa',
+                padding: '64px 16px',
                 position: 'relative',
                 overflow: 'hidden',
             }}
         >
-            {/* Darker and more blurred floating blobs */}
-            <div style={{
-                position: 'absolute',
-                width: 300,
-                height: 300,
-                borderRadius: '50%',
-                background: primaryColor + '33', // darker
-                top: -100,
-                left: -100,
-                filter: 'blur(120px)',
-                zIndex: 0,
-                transition: 'all 0.6s ease',
-            }} />
-            <div style={{
-                position: 'absolute',
-                width: 400,
-                height: 400,
-                borderRadius: '50%',
-                background: secondaryColor + '33', // darker
-                bottom: -150,
-                right: -150,
-                filter: 'blur(140px)',
-                zIndex: 0,
-                transition: 'all 0.6s ease',
-            }} />
+            {/* Background blobs */}
+            <div
+                style={{
+                    position: 'absolute',
+                    width: 260,
+                    height: 260,
+                    borderRadius: '50%',
+                    background: primaryColor + '33',
+                    top: '-80px',
+                    left: '-80px',
+                    filter: 'blur(120px)',
+                    zIndex: 0,
+                }}
+            />
+            <div
+                style={{
+                    position: 'absolute',
+                    width: 320,
+                    height: 320,
+                    borderRadius: '50%',
+                    background: secondaryColor + '33',
+                    bottom: '-120px',
+                    right: '-120px',
+                    filter: 'blur(140px)',
+                    zIndex: 0,
+                }}
+            />
 
             <Row
                 style={{ width: '100%', zIndex: 1 }}
                 gutter={[32, 32]}
-                align="middle"
                 justify="center"
+                align="middle"
             >
-                <Col xs={24} md={12}>
-                    <Title level={1} style={{ color: '#020617', lineHeight: 1.2 }}>
-                        We craft <span style={{ color: primaryColor }}>smart</span>,<br />
-                        scalable, and <span style={{ color: secondaryColor }}>impactful</span> solutions
+                <Col xs={24} md={16} lg={12}>
+                    <Title
+                        level={1}
+                        style={{
+                            textAlign: 'center',
+                            fontSize: 'clamp(28px, 5vw, 52px)',
+                            lineHeight: 1.2,
+                            color: '#020617',
+                        }}
+                    >
+                        We craft{' '}
+                        <span style={{ color: primaryColor }}>smart</span>, scalable &
+                        <br />
+                        <span style={{ color: secondaryColor }}>impactful</span> solutions
                     </Title>
-                    <Paragraph style={{ color: '#475569', fontSize: 16, marginTop: 16 }}>
-                        Transforming ideas into robust web, mobile, and cloud solutions with modern technologies.
+
+                    <Paragraph
+                        style={{
+                            textAlign: 'center',
+                            fontSize: 'clamp(14px, 2.5vw, 16px)',
+                            color: '#475569',
+                            marginTop: 16,
+                            maxWidth: 520,
+                            marginInline: 'auto',
+                        }}
+                    >
+                        Transforming ideas into robust web, mobile, and cloud solutions
+                        with modern technologies.
                     </Paragraph>
 
-                    <Row style={{ marginTop: 32 }} gutter={[12, 12]} align="middle">
-                        <Col xs={24} sm={16}>
+                    {/* CTA */}
+                    <Row
+                        gutter={[12, 12]}
+                        justify="center"
+                        style={{ marginTop: 32 }}
+                    >
+                        <Col xs={24} sm={14} md={12}>
                             <Input
                                 placeholder="Enter your email address"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 style={{
                                     width: '100%',
-                                    maxWidth: 260,
                                     borderRadius: 32,
                                     border: '1px solid #cfd4da',
-                                    padding: '12px 16px',
-                                    transition: 'all 0.3s ease',
+                                    padding: '12px 18px',
                                     boxShadow: '0 6px 20px rgba(0,0,0,0.05)',
                                 }}
-                                onFocus={(e) => e.target.style.boxShadow = '0 8px 25px rgba(0,0,0,0.12)'}
-                                onBlur={(e) => e.target.style.boxShadow = '0 6px 20px rgba(0,0,0,0.05)'}
                             />
                         </Col>
-                        <Col xs={24} sm={8}>
+
+                        <Col xs={24} sm={10} md={8}>
                             <Button
+                                block
                                 style={{
-                                    width: '100%',
-                                    maxWidth: 160,
                                     borderRadius: 32,
                                     background: primaryColor,
                                     borderColor: primaryColor,
-                                    padding: '0 28px',
-                                    height: 50,
+                                    height: 48,
                                     fontWeight: 600,
                                     color: '#fff',
                                     boxShadow: '0 8px 25px rgba(0,0,0,0.12)',
-                                    transition: 'all 0.3s, transform 0.2s',
+                                    transition: 'transform 0.2s ease',
                                 }}
-                                onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-3px)'}
-                                onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
+                                onMouseEnter={(e) =>
+                                (e.currentTarget.style.transform =
+                                    'translateY(-2px)')
+                                }
+                                onMouseLeave={(e) =>
+                                (e.currentTarget.style.transform =
+                                    'translateY(0)')
+                                }
                                 onClick={handleSubmit}
                             >
                                 Talk to Us
