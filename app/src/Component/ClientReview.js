@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, Divider, Typography } from "antd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import AnimatedTitle from "./AnimatedTitle";
 import {
@@ -9,47 +9,29 @@ import {
     secondaryColor,
     secondaryTextColor,
 } from "../Utils/Colors";
-import { clientReviews } from "../Utils/Const.js";
-import { Footer } from "antd/es/layout/layout";
-const { Text } = Typography;
-const { Paragraph } = Typography;
+import { clientReviews } from "../Utils/Const";
+
+const { Text, Paragraph } = Typography;
 
 export default function ClientTestimonialsGrid() {
     const [activeIndex, setActiveIndex] = useState(null);
-
-    // responsive columns: 3 on desktop, 2 on tablet, 1 on mobile
-    const [columns, setColumns] = useState(() => {
-        if (typeof window === "undefined") return 3;
-        const w = window.innerWidth;
-        if (w < 768) return 1;
-        if (w < 1200) return 2;
-        return 3;
-    });
-
-    useEffect(() => {
-        const onResize = () => {
-            const w = window.innerWidth;
-            if (w < 768) setColumns(1);
-            else if (w < 1200) setColumns(2);
-            else setColumns(3);
-        };
-        window.addEventListener("resize", onResize);
-        return () => window.removeEventListener("resize", onResize);
-    }, []);
 
     const handleCardClick = (idx) => {
         setActiveIndex((prev) => (prev === idx ? null : idx));
     };
 
-    // Framer Motion variants for cards
     const cardVariants = {
-        hidden: { opacity: 0, y: 40 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+        hidden: { opacity: 0, y: 30 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.5, ease: "easeOut" },
+        },
     };
 
     return (
         <>
-            {/* Animated Title */}
+            {/* Section Title */}
             <AnimatedTitle
                 words={["Clients", "Review"]}
                 highlightWords={["Review"]}
@@ -57,12 +39,12 @@ export default function ClientTestimonialsGrid() {
                 amount={0.5}
             />
 
-            {/* Animated Grid */}
+            {/* Responsive Grid */}
             <div
                 style={{
                     display: "grid",
-                    gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
-                    gap: 24,
+                    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                    gap: 20,
                 }}
             >
                 {clientReviews.map((client, index) => {
@@ -71,75 +53,98 @@ export default function ClientTestimonialsGrid() {
                     return (
                         <motion.div
                             key={index}
-                            custom={index}
                             initial="hidden"
                             whileInView="visible"
-                            viewport={{ once: false, amount: 0.5 }}
+                            viewport={{ once: false, amount: 0.4 }}
                             variants={cardVariants}
                         >
                             <Card
+                                hoverable
                                 onClick={() => handleCardClick(index)}
-                                tabIndex={0}
-                                role="button"
                                 style={{
                                     borderRadius: 16,
-                                    padding: 24,
-                                    height: 320,
-                                    boxSizing: "border-box",
-                                    boxShadow: isActive
-                                        ? "0 20px 40px rgba(2,6,23,0.15)"
-                                        : "0 10px 30px rgba(0,0,0,0.05)",
-                                    transition: "all 0.3s ease",
-                                    background: "#fff",
+                                    padding: 20,
+                                    minHeight: isActive ? "auto" : 180,
+                                    height: "100%",
                                     cursor: "pointer",
-                                    border: `1px solid ${isActive ? primaryColor : secondaryColor}`,
                                     display: "flex",
                                     flexDirection: "column",
+                                    border: `1px solid ${isActive ? primaryColor : "#e5e7eb"
+                                        }`,
+                                    boxShadow: isActive
+                                        ? "0 16px 32px rgba(2,6,23,0.15)"
+                                        : "0 8px 20px rgba(0,0,0,0.06)",
+                                    transition: "all 0.3s ease",
                                 }}
                             >
                                 {isActive ? (
                                     <>
-                                        {/* Client Text */}
-                                        <div style={{ flex: 1 }}>
-                                            <Paragraph
+                                        <Paragraph
+                                            style={{
+                                                fontSize: 14,
+                                                lineHeight: 1.6,
+                                                color: secondaryTextColor,
+                                                marginBottom: 16,
+                                            }}
+                                        >
+                                            “{client.text}”
+                                        </Paragraph>
+
+                                        <Divider
+                                            style={{
+                                                borderColor: primaryColor,
+                                                margin: "8px 0",
+                                            }}
+                                        />
+
+                                        <div>
+                                            <Text
                                                 style={{
-                                                    fontSize: 16,
-                                                    color: secondaryTextColor,
-                                                    lineHeight: 1.6,
-                                                    margin: 0,
-                                                    textAlign: "left",
-                                                    overflowY: "auto",
+                                                    color: primaryColor,
+                                                    fontWeight: 600,
+                                                    fontSize: 15,
                                                 }}
                                             >
-                                                “ {client.text} ”
-                                            </Paragraph>
-                                        </div>
-
-                                        {/* Divider */}
-                                        <Divider style={{ borderColor: primaryColor, margin: "12px 0" }} />
-
-                                        {/* Name and Role at bottom */}
-                                        <Footer style={{ marginTop: "auto", textAlign: "left", backgroundColor: 'transparent' }}>
-                                            <div style={{ color: primaryColor, fontWeight: 600 }}>
                                                 {client.name}
-                                            </div>
-                                            <div style={{ color: secondaryTextColor, fontSize: 14 }}>
+                                            </Text>
+                                            <div
+                                                style={{
+                                                    color: secondaryTextColor,
+                                                    fontSize: 13,
+                                                    marginTop: 2,
+                                                }}
+                                            >
                                                 {client.role}
                                             </div>
-                                        </Footer>
+                                        </div>
                                     </>
                                 ) : (
                                     <div
-                                        className="flex flex-col justify-center items-center text-center"
                                         style={{
-                                            position: "absolute",
-                                            inset: 0
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            height: "100%",
+                                            textAlign: "center",
                                         }}
                                     >
-                                        <Text style={{ color: secondaryColor, fontWeight: 600, fontSize: 16 }}>
+                                        <Text
+                                            style={{
+                                                color: secondaryColor,
+                                                fontWeight: 600,
+                                                fontSize: 15,
+                                            }}
+                                        >
                                             {client.name}
                                         </Text>
-                                        <Text style={{ color: secondaryTextColor, fontSize: 14 }}>
+                                        <Text
+                                            style={{
+                                                color: secondaryTextColor,
+                                                fontSize: 13,
+                                                marginTop: 4,
+                                            }}
+                                        >
                                             {client.role}
                                         </Text>
                                     </div>
