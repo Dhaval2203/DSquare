@@ -1,26 +1,120 @@
 @import "tailwindcss";
 
+/* ===============================
+   Theme Variables
+================================ */
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --dsq-primary: #0ea5a4;
+  /* Teal */
+  --dsq-secondary: #ef4444;
+  /* Red */
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ===============================
+   Desktop Menu Styling
+================================ */
+
+.custom-menu.ant-menu-horizontal {
+  border-bottom: none !important;
+}
+
+.custom-menu .ant-menu-item {
+  border-bottom: 2px solid transparent;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+}
+
+.custom-menu .ant-menu-item:hover {
+  color: var(--dsq-secondary) !important;
+  border-bottom: 2px solid var(--dsq-secondary);
+  font-weight: 600;
+}
+
+.custom-menu .ant-menu-item-selected {
+  color: var(--dsq-primary) !important;
+  border-bottom: 2px solid var(--dsq-primary);
+  font-weight: 600;
+}
+
+.custom-menu .ant-menu-item::after {
+  display: none !important;
+}
+
+/* ===============================
+   Mobile Drawer Menu Styling
+================================ */
+
+.mobile-menu .ant-menu-item {
+  margin: 6px 12px;
+  border-radius: 8px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Hover → SECONDARY */
+.mobile-menu .ant-menu-item:hover {
+  color: var(--dsq-secondary) !important;
+}
+
+/* Active → PRIMARY */
+.mobile-menu .ant-menu-item-selected {
+  background-color: rgba(14, 165, 164, 0.12) !important;
+  color: var(--dsq-primary) !important;
+}
+
+/* Remove AntD default blue */
+.mobile-menu .ant-menu-item-selected::after {
+  display: none !important;
+}
+
+/* ===============================
+   Responsive Control
+================================ */
+
+.desktop-menu {
+  margin-left: auto;
+}
+
+.custom-menu {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+}
+
+.mobile-menu-btn {
+  display: none !important;
+  margin-left: auto;
+}
+
+@media (max-width: 1024px) {
+  .desktop-menu {
+    display: none !important;
+  }
+
+  .mobile-menu-btn {
+    display: block !important;
+  }
+}
+
+@keyframes fadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animated-title {
+  display: inline-block;
+  animation: fadeSlideIn 1s ease forwards;
 }
