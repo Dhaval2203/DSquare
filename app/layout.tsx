@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "D Square",
-  description: "D Square - Unlock the future",
+  title: "D Square Infotech",
+  description: "D Square Infotech - Unlock the future",
 };
 
 export default function RootLayout({

@@ -65,7 +65,7 @@ export default function Headers() {
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                 <Image src="/Logo.png" alt="D Square Logo" width={40} height={40} />
                 <span style={{ fontSize: 18, fontWeight: 700, color: "#0f172a" }}>
-                    D Square
+                    D Square Infotech
                 </span>
             </div>
 
