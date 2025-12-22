@@ -66,41 +66,48 @@ export default function Hero() {
                         Transforming ideas into robust web, mobile, and cloud solutions with modern technologies.
                     </Paragraph>
 
-                    <Space style={{ marginTop: 32 }} size="middle">
-                        <Input
-                            placeholder="Enter your email address"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            style={{
-                                width: 260,
-                                borderRadius: 32,
-                                border: '1px solid #cfd4da',
-                                padding: '12px 16px',
-                                transition: 'all 0.3s ease',
-                                boxShadow: '0 6px 20px rgba(0,0,0,0.05)',
-                            }}
-                            onFocus={(e) => e.target.style.boxShadow = '0 8px 25px rgba(0,0,0,0.12)'}
-                            onBlur={(e) => e.target.style.boxShadow = '0 6px 20px rgba(0,0,0,0.05)'}
-                        />
-                        <Button
-                            style={{
-                                borderRadius: 32,
-                                background: primaryColor,
-                                borderColor: primaryColor,
-                                padding: '0 28px',
-                                height: 50,
-                                fontWeight: 600,
-                                color: '#fff',
-                                boxShadow: '0 8px 25px rgba(0,0,0,0.12)',
-                                transition: 'all 0.3s, transform 0.2s',
-                            }}
-                            onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-3px)'}
-                            onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
-                            onClick={handleSubmit}
-                        >
-                            Talk to Us
-                        </Button>
-                    </Space>
+                    <Row style={{ marginTop: 32 }} gutter={[12, 12]} align="middle">
+                        <Col xs={24} sm={16}>
+                            <Input
+                                placeholder="Enter your email address"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                style={{
+                                    width: '100%',
+                                    maxWidth: 260,
+                                    borderRadius: 32,
+                                    border: '1px solid #cfd4da',
+                                    padding: '12px 16px',
+                                    transition: 'all 0.3s ease',
+                                    boxShadow: '0 6px 20px rgba(0,0,0,0.05)',
+                                }}
+                                onFocus={(e) => e.target.style.boxShadow = '0 8px 25px rgba(0,0,0,0.12)'}
+                                onBlur={(e) => e.target.style.boxShadow = '0 6px 20px rgba(0,0,0,0.05)'}
+                            />
+                        </Col>
+                        <Col xs={24} sm={8}>
+                            <Button
+                                style={{
+                                    width: '100%',
+                                    maxWidth: 160,
+                                    borderRadius: 32,
+                                    background: primaryColor,
+                                    borderColor: primaryColor,
+                                    padding: '0 28px',
+                                    height: 50,
+                                    fontWeight: 600,
+                                    color: '#fff',
+                                    boxShadow: '0 8px 25px rgba(0,0,0,0.12)',
+                                    transition: 'all 0.3s, transform 0.2s',
+                                }}
+                                onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-3px)'}
+                                onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
+                                onClick={handleSubmit}
+                            >
+                                Talk to Us
+                            </Button>
+                        </Col>
+                    </Row>
                 </Col>
             </Row>
         </section>
