@@ -73,3 +73,49 @@ export const softwareDevelopmentProcessSteps = [
             "Offer continuous support to manage updates, resolve issues, and implement improvements, ensuring the software remains optimized.",
     },
 ];
+
+export function icon() {
+    return (
+        <svg
+            width="64"
+            height="64"
+            viewBox="0 0 64 64"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <rect
+                x="6"
+                y="6"
+                width="52"
+                height="52"
+                rx="10"
+                fill="none"
+                stroke="#0ea5a4"
+                stroke-width="4"
+            />
+
+            <rect
+                x="18"
+                y="18"
+                width="28"
+                height="28"
+                rx="6"
+                fill="none"
+                stroke="#ef4444"
+                stroke-width="3"
+            />
+
+            <text
+                x="32"
+                y="40"
+                text-anchor="middle"
+                font-size="22"
+                font-weight="700"
+                fill="#0ea5a4"
+                font-family="Arial, Helvetica, sans-serif"
+            >
+                D
+            </text>
+        </svg >
+
+    )
+}
