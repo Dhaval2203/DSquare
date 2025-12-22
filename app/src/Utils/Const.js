@@ -1,10 +1,11 @@
 export const menuItems = [
     { key: "home", label: "Home" },
     { key: "services", label: "Services" },
-    { key: "about", label: "About" },
     { key: "technologies", label: "Technologies" },
     { key: "process", label: "Process" },
     { key: "reviews", label: "Reviews" },
+    { key: "career", label: "Career" },
+    { key: "about", label: "About" },
     { key: "contact", label: "Contact" },
 ]
 
@@ -73,6 +74,32 @@ export const softwareDevelopmentProcessSteps = [
             "Offer continuous support to manage updates, resolve issues, and implement improvements, ensuring the software remains optimized.",
     },
 ];
+
+export const careerOpportunities = [
+    {
+        title: 'Frontend Developer',
+        description: 'Work on cutting-edge web applications using React, Next.js, and modern UI technologies.',
+    },
+    {
+        title: 'Backend Developer',
+        description: 'Develop robust backend services using Node.js, Express, and cloud solutions.',
+    },
+    {
+        title: 'UI/UX Designer',
+        description: 'Design intuitive and modern interfaces for web and mobile applications.',
+    },
+];
+
+export const aboutSections = [{
+    title: 'Our Mission',
+    description: 'To build smart, scalable, and impactful solutions that empower businesses worldwide and drive innovation in every project we undertake.',
+}, {
+    title: 'Our Values',
+    description: 'Clean code, long-term technology partnerships, continuous learning, and delivering excellence with integrity and transparency.',
+}, {
+    title: 'Our Vision',
+    description: 'To be recognized as a global technology partner, shaping the future with innovative solutions and meaningful digital experiences.',
+}];
 
 export function icon() {
     return (

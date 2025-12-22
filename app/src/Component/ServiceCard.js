@@ -1,5 +1,4 @@
 import { Card } from "antd";
-import React from "react";
 
 export default function ServiceCard({ icon, title, description }) {
     const handleMouseEnter = (e) => {

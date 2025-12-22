@@ -1,14 +1,16 @@
 'use client';
 import { Button, Layout, Typography } from 'antd';
 import 'antd/dist/reset.css';
-import { backgroundColor, secondaryTextColor, whiteColor } from '../Utils/Colors';
+import { backgroundColor, whiteColor } from '../Utils/Colors';
+import AboutUs from './AboutUs';
+import Career from './Career';
 import ClientReview from './ClientReview';
+import FooterComponent from './Footer';
 import Headers from './Header';
 import Hero from './Hero';
 import Services from './Services';
 import SoftwareDevelopmentProcess from './SoftwareDevelopmentProcess';
 import Technologies from './Technologies';
-import FooterComponent from './Footer';
 
 const { Content } = Layout;
 const { Title, Paragraph } = Typography;
@@ -49,11 +51,12 @@ export default function HomePage() {
                     <ClientReview />
                 </section>
 
+                <selection id="career" style={{ padding: '40px 16px', overflow: 'hidden' }}>
+                    <Career />
+                </selection>
+
                 <section id="about" style={{ padding: '80px 16px', background: '#f1f5f9', textAlign: 'center', overflow: 'hidden' }}>
-                    <Title level={2} style={{ color: '#020617' }}>Why D Square?</Title>
-                    <Paragraph style={{ color: '#475569', maxWidth: 720, margin: '0 auto' }}>
-                        We focus on clean code, future-ready architecture, and long-term technology partnerships.
-                    </Paragraph>
+                    <AboutUs />
                 </section>
 
                 <section id="contact" style={{ padding: '80px 16px', textAlign: 'center', overflow: 'hidden' }}>
