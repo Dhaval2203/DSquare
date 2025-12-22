@@ -21,7 +21,7 @@ export default function Hero() {
                 display: 'flex',
                 alignItems: 'center',
                 background: '#f5f6fa',
-                padding: '64px 16px',
+                padding: '64px 0',            // ✅ remove side padding
                 position: 'relative',
                 overflow: 'hidden',
             }}
@@ -37,7 +37,6 @@ export default function Hero() {
                     top: '-80px',
                     left: '-80px',
                     filter: 'blur(120px)',
-                    zIndex: 0,
                 }}
             />
             <div
@@ -50,17 +49,27 @@ export default function Hero() {
                     bottom: '-120px',
                     right: '-120px',
                     filter: 'blur(140px)',
-                    zIndex: 0,
                 }}
             />
 
             <Row
-                style={{ width: '100%', zIndex: 1 }}
-                gutter={[32, 32]}
                 justify="center"
                 align="middle"
+                style={{
+                    width: '100%',
+                    margin: 0,                 // ✅ override AntD negative margins
+                    padding: '0 16px',         // ✅ consistent mobile padding
+                }}
             >
-                <Col xs={24} md={16} lg={12}>
+                <Col
+                    xs={24}
+                    md={18}
+                    lg={12}
+                    style={{
+                        padding: 0,             // ✅ remove extra spacing
+                        maxWidth: '100%',
+                    }}
+                >
                     <Title
                         level={1}
                         style={{
@@ -70,8 +79,7 @@ export default function Hero() {
                             color: '#020617',
                         }}
                     >
-                        We craft{' '}
-                        <span style={{ color: primaryColor }}>smart</span>, scalable &
+                        We craft <span style={{ color: primaryColor }}>smart</span>, scalable
                         <br />
                         <span style={{ color: secondaryColor }}>impactful</span> solutions
                     </Title>
@@ -93,10 +101,13 @@ export default function Hero() {
                     {/* CTA */}
                     <Row
                         gutter={[12, 12]}
-                        justify="center"
-                        style={{ marginTop: 32 }}
+                        style={{
+                            marginTop: 32,
+                            marginLeft: 0,
+                            marginRight: 0,
+                        }}
                     >
-                        <Col xs={24} sm={14} md={12}>
+                        <Col xs={24} style={{ paddingLeft: 0, paddingRight: 0 }}>
                             <Input
                                 placeholder="Enter your email address"
                                 value={email}
@@ -104,14 +115,12 @@ export default function Hero() {
                                 style={{
                                     width: '100%',
                                     borderRadius: 32,
-                                    border: '1px solid #cfd4da',
-                                    padding: '12px 18px',
-                                    boxShadow: '0 6px 20px rgba(0,0,0,0.05)',
+                                    padding: '14px 18px',
                                 }}
                             />
                         </Col>
 
-                        <Col xs={24} sm={10} md={8}>
+                        <Col xs={24} style={{ paddingLeft: 0, paddingRight: 0 }}>
                             <Button
                                 block
                                 style={{
@@ -121,17 +130,7 @@ export default function Hero() {
                                     height: 48,
                                     fontWeight: 600,
                                     color: '#fff',
-                                    boxShadow: '0 8px 25px rgba(0,0,0,0.12)',
-                                    transition: 'transform 0.2s ease',
                                 }}
-                                onMouseEnter={(e) =>
-                                (e.currentTarget.style.transform =
-                                    'translateY(-2px)')
-                                }
-                                onMouseLeave={(e) =>
-                                (e.currentTarget.style.transform =
-                                    'translateY(0)')
-                                }
                                 onClick={handleSubmit}
                             >
                                 Talk to Us
