@@ -21,7 +21,7 @@ export default function Hero() {
                 display: 'flex',
                 alignItems: 'center',
                 background: '#f5f6fa',
-                padding: '64px 0',            // ✅ remove side padding
+                padding: '64px 0',
                 position: 'relative',
                 overflow: 'hidden',
             }}
@@ -57,8 +57,8 @@ export default function Hero() {
                 align="middle"
                 style={{
                     width: '100%',
-                    margin: 0,                 // ✅ override AntD negative margins
-                    padding: '0 16px',         // ✅ consistent mobile padding
+                    margin: 0,
+                    padding: '0 16px',
                 }}
             >
                 <Col
@@ -66,7 +66,7 @@ export default function Hero() {
                     md={18}
                     lg={12}
                     style={{
-                        padding: 0,             // ✅ remove extra spacing
+                        padding: 0,
                         maxWidth: '100%',
                     }}
                 >
@@ -101,13 +101,10 @@ export default function Hero() {
                     {/* CTA */}
                     <Row
                         gutter={[12, 12]}
-                        style={{
-                            marginTop: 32,
-                            marginLeft: 0,
-                            marginRight: 0,
-                        }}
+                        justify="center"
+                        style={{ marginTop: 32 }}
                     >
-                        <Col xs={24} style={{ paddingLeft: 0, paddingRight: 0 }}>
+                        <Col xs={24} sm={16} md={12}>
                             <Input
                                 placeholder="Enter your email address"
                                 value={email}
@@ -120,9 +117,8 @@ export default function Hero() {
                             />
                         </Col>
 
-                        <Col xs={24} style={{ paddingLeft: 0, paddingRight: 0 }}>
+                        <Col xs="auto" style={{ textAlign: 'center' }}>
                             <Button
-                                block
                                 style={{
                                     borderRadius: 32,
                                     background: primaryColor,
@@ -130,6 +126,8 @@ export default function Hero() {
                                     height: 48,
                                     fontWeight: 600,
                                     color: '#fff',
+                                    padding: '0 32px', // ✅ smaller width
+                                    minWidth: 160,     // optional minimum width
                                 }}
                                 onClick={handleSubmit}
                             >
