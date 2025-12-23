@@ -76,15 +76,88 @@ export const softwareDevelopmentProcessSteps = [
 export const careerOpportunities = [
     {
         title: 'Frontend Developer',
-        description: 'Work on cutting-edge web applications using React, Next.js, and modern UI technologies.',
+        description:
+            'Work on building high-quality user interfaces and engaging web experiences.',
+        responsibilities: [
+            'Develop, optimize, and maintain front-end applications',
+            'Build responsive, accessible, and high-performance user interfaces',
+            'Collaborate with designers to translate designs into functional interfaces',
+            'Create reusable components and front-end libraries for future use',
+            'Integrate with backend services and APIs',
+            'Optimize applications for performance, scalability, and cross-browser compatibility',
+            'Debug, troubleshoot, and resolve front-end issues efficiently',
+            'Participate in code reviews to ensure code quality and best practices',
+            'Work closely with QA teams to ensure smooth and bug-free releases',
+            'Stay up to date with the latest front-end trends and best practices',
+        ],
+        requirements: [
+            'Proven experience in front-end development',
+            'Strong knowledge of web fundamentals (HTML, CSS, JavaScript)',
+            'Experience with state management and UI design principles',
+            'Understanding of API integration and client-server communication',
+            'Experience with responsive and accessible design',
+            'Familiarity with version control and collaborative development workflows',
+            'Good problem-solving and debugging skills',
+            'Ability to work in a team and communicate effectively',
+            'Understanding of performance optimization and usability best practices',
+            'Experience working in Agile/Scrum environments',
+        ],
     },
     {
         title: 'Backend Developer',
-        description: 'Develop robust backend services using Node.js, Express, and cloud solutions.',
+        description:
+            'Develop robust and scalable backend systems and APIs to support applications.',
+        responsibilities: [
+            'Design, develop, and maintain backend services and APIs',
+            'Manage and optimize databases and server-side logic',
+            'Ensure application security, authentication, and authorization',
+            'Implement caching, logging, and monitoring solutions',
+            'Collaborate with frontend teams for smooth integration',
+            'Optimize backend systems for performance and scalability',
+            'Troubleshoot production issues and implement long-term fixes',
+            'Write clean, maintainable, and well-documented backend code',
+            'Participate in code reviews and architecture discussions',
+            'Stay updated with backend development best practices',
+        ],
+        requirements: [
+            'Proven experience in backend development',
+            'Strong understanding of server-side programming concepts',
+            'Knowledge of database management and design',
+            'Experience with authentication and authorization mechanisms',
+            'Understanding of API design and best practices',
+            'Familiarity with version control and collaborative workflows',
+            'Good problem-solving and debugging skills',
+            'Ability to write clean and maintainable code',
+            'Understanding of performance and scalability considerations',
+            'Experience working in Agile/Scrum environments',
+        ],
     },
     {
         title: 'UI/UX Designer',
-        description: 'Design intuitive and modern interfaces for web and mobile applications.',
+        description:
+            'Design intuitive, user-friendly, and visually appealing interfaces.',
+        responsibilities: [
+            'Create user-centered designs for web and mobile applications',
+            'Design wireframes, prototypes, and high-fidelity UI designs',
+            'Collaborate with product managers and developers to define user experiences',
+            'Conduct user research and usability testing',
+            'Maintain and evolve design systems and UI guidelines',
+            'Ensure consistency across all digital products',
+            'Incorporate user feedback into design iterations',
+            'Stay up to date with design trends and best practices',
+            'Optimize designs for accessibility and usability standards',
+        ],
+        requirements: [
+            'Proven experience in UI/UX design',
+            'Strong portfolio demonstrating design skills',
+            'Experience with design tools and prototyping',
+            'Understanding of user-centered design principles',
+            'Ability to design responsive and accessible interfaces',
+            'Strong attention to detail and visual design skills',
+            'Good communication and collaboration skills',
+            'Ability to incorporate user feedback effectively',
+            'Problem-solving and critical thinking skills',
+        ],
     },
 ];
 
@@ -113,7 +186,7 @@ export const contactItems = [{
     description: 'info@dsquareinfotech.com',
 }];
 
-export function icon() {
+export function DSquareIcon() {
     return (
         <svg
             width="64"
@@ -155,6 +228,38 @@ export function icon() {
                 D
             </text>
         </svg >
-
     )
+}
+
+export function DSquareIconForCareerPage() {
+    return (
+        <svg
+            width="32"
+            height="32"
+            viewBox="0 0 64 64"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <rect
+                x="6"
+                y="6"
+                width="52"
+                height="52"
+                rx="10"
+                fill="none"
+                stroke="#0ea5a4"
+                strokeWidth="4"
+            />
+
+            <rect
+                x="18"
+                y="18"
+                width="28"
+                height="28"
+                rx="6"
+                fill="none"
+                stroke="#ef4444"
+                strokeWidth="3"
+            />
+        </svg>
+    );
 }

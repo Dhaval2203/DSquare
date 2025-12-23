@@ -2,12 +2,12 @@
 
 import { Button, Input, Space, Typography } from 'antd';
 import {
-    accentColor, primaryColor,
+    primaryColor,
     secondaryColor, secondaryTextColor, whiteColor
 } from '../Utils/Colors';
+import { contactItems } from '../Utils/Const';
 import AnimatedTitle from './AnimatedTitle';
 import HoverItem from './HoverItem';
-import { contactItems } from '../Utils/Const';
 
 const { Paragraph, Text } = Typography;
 

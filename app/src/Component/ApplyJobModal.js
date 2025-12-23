@@ -1,0 +1,168 @@
+'use client';
+
+import { Card, Col, Modal, Row, Typography } from 'antd';
+import { primaryColor, secondaryColor, secondaryTextColor } from '../Utils/Colors';
+import { DSquareIconForCareerPage } from '../Utils/Const.js';
+const { Title, Paragraph, Text } = Typography;
+
+export default function ApplyJobModal(props) {
+    const { open, onClose, selectedRole } = props;
+
+    if (!selectedRole) return null;
+
+    const renderListWithBullets = (items, color, secondaryColorCode) => (
+        <ul style={{ paddingLeft: 0, margin: 0, listStyle: 'none' }}>
+            {items.map((item, idx) => (
+                <li
+                    key={idx}
+                    style={{
+                        display: "flex",
+                        alignItems: "center",
+                        marginBottom: 10,
+                        color: secondaryTextColor,
+                    }}
+                >
+                    <div
+                        style={{
+                            width: 20,
+                            height: 20,
+                            borderRadius: '50%',
+                            backgroundColor: secondaryColorCode + '20',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginRight: 10,
+                            flexShrink: 0,
+                        }}
+                    >
+                        <DSquareIconForCareerPage
+                            style={{
+                                width: 18,
+                                height: 18,
+                                color: color,
+                            }}
+                        />
+                    </div>
+
+                    <span style={{ lineHeight: 1.4 }}>{item}</span>
+                </li>
+            ))}
+        </ul>
+    );
+
+    return (
+        <Modal
+            open={open}
+            onCancel={onClose}
+            footer={null}
+            width={800}
+            centered
+            closeIcon={
+                <div
+                    style={{
+                        background: primaryColor + '20',
+                        borderRadius: '50%',
+                        width: 28,
+                        height: 28,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: secondaryColor,
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        transition: 'all 0.2s',
+                    }}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.background = primaryColor + '40';
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.background = primaryColor + '20';
+                    }}
+                >
+                    ×
+                </div>
+            }
+            title={
+                <div>
+                    <Title
+                        level={4}
+                        style={{
+                            marginBottom: 6,
+                            fontWeight: 700,
+                            letterSpacing: '0.3px',
+                            lineHeight: 1.3,
+                            background: `linear-gradient(
+                                90deg,
+                                ${primaryColor} 0%,
+                                ${secondaryColor} 50%,
+                                ${primaryColor} 100%
+                            )`,
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                        }}
+                    >
+                        Apply for {selectedRole.title}
+                    </Title>
+
+                    <div
+                        style={{
+                            height: 4,
+                            width: '100%',
+                            borderRadius: 4,
+                            background: `linear-gradient(90deg, ${primaryColor}80, ${secondaryColor}80)`,
+                            marginBottom: 8,
+                        }}
+                    />
+
+                    <Text style={{ color: secondaryTextColor, fontSize: 14 }}>
+                        Review the role details before applying
+                    </Text>
+                </div>
+            }
+        >
+            {/* Description */}
+            <Paragraph style={{ color: secondaryTextColor, marginBottom: 24 }}>
+                {selectedRole.description}
+            </Paragraph>
+
+            {/* Two Cards */}
+            <Row gutter={[16, 16]}>
+                {/* Responsibilities */}
+                <Col xs={24} md={12}>
+                    <Card
+                        title={
+                            <span style={{ color: secondaryColor, fontWeight: 600 }}>
+                                Key Responsibilities
+                            </span>
+                        }
+                        style={{
+                            height: '100%',
+                            borderRadius: 12,
+                            boxShadow: '0 4px 12px rgba(0,0,0,0.06)',
+                        }}
+                    >
+                        {renderListWithBullets(selectedRole.responsibilities, primaryColor, secondaryColor)}
+                    </Card>
+                </Col>
+
+                {/* Requirements */}
+                <Col xs={24} md={12}>
+                    <Card
+                        title={
+                            <span style={{ color: primaryColor, fontWeight: 600 }}>
+                                Requirements
+                            </span>
+                        }
+                        style={{
+                            height: '100%',
+                            borderRadius: 12,
+                            boxShadow: '0 4px 12px rgba(0,0,0,0.06)',
+                        }}
+                    >
+                        {renderListWithBullets(selectedRole.requirements, secondaryColor, primaryColor)}
+                    </Card>
+                </Col>
+            </Row>
+        </Modal>
+    );
+}

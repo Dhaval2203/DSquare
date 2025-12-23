@@ -1,12 +1,23 @@
 'use client';
+
 import { Button, Card, Col, Row, Typography } from 'antd';
+import { useState } from 'react';
 import { primaryColor, secondaryColor, secondaryTextColor } from '../Utils/Colors';
 import { careerOpportunities } from '../Utils/Const.js';
-import AnimatedTitle from './AnimatedTitle.js';
+import AnimatedTitle from './AnimatedTitle';
+import ApplyJobModal from './ApplyJobModal';
 
 const { Title, Paragraph } = Typography;
 
 export default function Career() {
+    const [open, setOpen] = useState(false);
+    const [selectedRole, setSelectedRole] = useState(null);
+
+    const handleApplyClick = (role) => {
+        setSelectedRole(role);
+        setOpen(true);
+    };
+
     return (
         <section
             id="career"
@@ -15,21 +26,29 @@ export default function Career() {
                 textAlign: 'center',
             }}
         >
-            {/* Section Header */}
             <AnimatedTitle
-                words={["Join our", "Team"]}
-                highlightWords={["Team"]}
+                words={['Join our', 'Team']}
+                highlightWords={['Team']}
                 highlightColor={primaryColor}
                 once={false}
                 amount={0.5}
             />
-            <Paragraph style={{ color: secondaryTextColor, maxWidth: 700, margin: '0 auto 40px auto' }}>
-                Explore exciting career opportunities and become a part of our mission to build smart, scalable, and impactful solutions.
+
+            <Paragraph
+                style={{
+                    color: secondaryTextColor,
+                    maxWidth: 700,
+                    margin: '0 auto 40px',
+                }}
+            >
+                Explore exciting career opportunities and become a part of our mission
+                to build smart, scalable, and impactful solutions.
             </Paragraph>
 
             <Row gutter={[24, 24]} justify="center">
                 {careerOpportunities.map((role, index) => {
-                    const color = index % 2 === 0 ? primaryColor : secondaryColor; // Alternate colors
+                    const color = index % 2 === 0 ? primaryColor : secondaryColor;
+
                     return (
                         <Col xs={24} sm={12} md={8} key={index}>
                             <Card
@@ -40,12 +59,19 @@ export default function Career() {
                                     border: 'none',
                                 }}
                             >
-                                <Title level={4} style={{ color: color, marginBottom: 12 }}>
+                                <Title level={4} style={{ color, marginBottom: 12 }}>
                                     {role.title}
                                 </Title>
-                                <Paragraph style={{ color: secondaryTextColor, minHeight: 60 }}>
+
+                                <Paragraph
+                                    style={{
+                                        color: secondaryTextColor,
+                                        minHeight: 60,
+                                    }}
+                                >
                                     {role.description}
                                 </Paragraph>
+
                                 <Button
                                     type="primary"
                                     style={{
@@ -53,7 +79,7 @@ export default function Career() {
                                         background: color,
                                         borderColor: color,
                                     }}
-                                    onClick={() => alert(`Apply for ${role.title}`)}
+                                    onClick={() => handleApplyClick(role)}
                                 >
                                     Apply Now
                                 </Button>
@@ -62,6 +88,12 @@ export default function Career() {
                     );
                 })}
             </Row>
+
+            <ApplyJobModal
+                open={open}
+                onClose={() => setOpen(false)}
+                selectedRole={selectedRole}
+            />
         </section>
     );
 }
