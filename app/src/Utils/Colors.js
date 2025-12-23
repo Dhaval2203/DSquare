@@ -7,6 +7,27 @@ export const secondaryTextColor = '#475569';
 export const borderColor = '#e2e8f0';
 export const whiteColor = '#ffffff';
 
+// #1AB1AF
+// #26BDBC
+// #33C9C8
+// #40D5D4
+// #5ADDDC
+// #74E5E4
+// #8EECED
+// #A8F2F3
+// #C2F8F9
+// #DCFDFD
+
+// #F05555
+// #F26666
+// #F47777
+// #F58888
+// #F79999
+// #F8AAAA
+// #F9BBBB
+// #FACCCC
+// #FBDDDD
+// #FCEEEE
 
 // export const primaryColor = '#0ea5e9';  // Sky Blue
 // export const secondaryColor = '#f59e0b'; // Amber Orange

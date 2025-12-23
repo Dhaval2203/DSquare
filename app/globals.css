@@ -16,6 +16,8 @@
   /* Teal */
   --dsq-secondary: #ef4444;
   /* Red */
+  --dsq-primary-rgba: rgba(14, 165, 164, 0.2);
+  --dsq-secondary-rgba: rgba(239, 68, 68, 0.2);
 }
 
 body {
@@ -122,4 +124,16 @@ body {
 .animated-title {
   display: inline-block;
   animation: fadeSlideIn 1s ease forwards;
+}
+
+/* Hover */
+.ant-input:hover {
+  border-color: var(--dsq-secondary) !important;
+}
+
+/* Focus */
+.ant-input:focus,
+.ant-input-focused {
+  border-color: var(--dsq-secondary) !important;
+  box-shadow: 0 0 0 2px var(--dsq-secondary-rgba) !important;
 }
