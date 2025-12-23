@@ -13,7 +13,7 @@ import SoftwareDevelopmentProcess from './SoftwareDevelopmentProcess';
 import Technologies from './Technologies';
 
 const { Content } = Layout;
-const { Title, Paragraph } = Typography;
+const { Title } = Typography;
 
 export default function HomePage() {
     return (

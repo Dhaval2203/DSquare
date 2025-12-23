@@ -1,24 +1,59 @@
 'use client';
 import { Button, Input, Typography, Row, Col } from 'antd';
 import { useState, useEffect } from 'react';
-import { accentColor, primaryColor, secondaryColor } from '../Utils/Colors';
+import { primaryColor, secondaryColor, accentColor } from '../Utils/Colors';
 
 const { Title, Paragraph } = Typography;
 
 export default function Hero() {
     const [email, setEmail] = useState('');
     const [displayText, setDisplayText] = useState('');
-    const fullText = "We craft SMART, SCALABLE, IMPACTFUL solutions";
+    const [phase, setPhase] = useState('typing'); // typing → thinking → replacing
+
+    const initialText = 'We BUILD solution.';
+    const finalText = 'We craft SMART, SCALABLE, and IMPACTFUL solutions.';
 
     useEffect(() => {
         let index = 0;
-        const interval = setInterval(() => {
-            setDisplayText(fullText.slice(0, index + 1));
-            index++;
-            if (index === fullText.length) clearInterval(interval);
-        }, 100);
-        return () => clearInterval(interval);
-    }, []);
+        let timeout;
+
+        if (phase === 'typing') {
+            const interval = setInterval(() => {
+                setDisplayText(initialText.slice(0, index + 1));
+                index++;
+
+                if (index === initialText.length) {
+                    clearInterval(interval);
+                    timeout = setTimeout(() => setPhase('thinking'), 800);
+                }
+            }, 90);
+
+            return () => clearInterval(interval);
+        }
+
+        if (phase === 'thinking') {
+            timeout = setTimeout(() => {
+                setDisplayText('');
+                setPhase('replacing');
+            }, 900);
+        }
+
+        if (phase === 'replacing') {
+            index = 0;
+            const interval = setInterval(() => {
+                setDisplayText(finalText.slice(0, index + 1));
+                index++;
+
+                if (index === finalText.length) {
+                    clearInterval(interval);
+                }
+            }, 60);
+
+            return () => clearInterval(interval);
+        }
+
+        return () => clearTimeout(timeout);
+    }, [phase]);
 
     const handleSubmit = () => {
         if (!email) return;
@@ -26,28 +61,34 @@ export default function Hero() {
         setEmail('');
     };
 
-    // Map colored words with their start and end indices
-    const coloredWordsRanges = [
-        { word: "SMART,", color: primaryColor },
-        { word: "SCALABLE,", color: secondaryColor },
-        { word: "IMPACTFUL", color: accentColor }
-    ];
-
+    // Keyword-based coloring (AI-safe during typing)
     const renderColoredText = (text) => {
+        const colorRules = [
+            { word: 'BUILD', color: primaryColor },
+            { word: 'SMART,', color: primaryColor },
+            { word: 'SCALABLE,', color: secondaryColor },
+            { word: 'IMPACTFUL', color: accentColor },
+        ];
+
         return text.split('').map((char, index) => {
-            let charColor = undefined;
+            let color = '#020617';
+            let fontWeight = 600;
 
-            // Check if current character is inside any colored word range
-            for (let { word, color } of coloredWordsRanges) {
-                const start = fullText.indexOf(word);
+            colorRules.forEach(({ word, color: ruleColor }) => {
+                const start = text.indexOf(word);
                 const end = start + word.length;
-                if (index >= start && index < end) {
-                    charColor = color;
-                    break;
-                }
-            }
 
-            return <span key={index} style={{ color: charColor }}>{char}</span>;
+                if (start !== -1 && index >= start && index < end) {
+                    color = ruleColor;
+                    fontWeight = 700;
+                }
+            });
+
+            return (
+                <span key={index} style={{ color, fontWeight }}>
+                    {char}
+                </span>
+            );
         });
     };
 
@@ -60,7 +101,7 @@ export default function Hero() {
                 background: '#f5f6fa',
                 padding: '64px 0',
                 position: 'relative',
-                overflow: 'hidden'
+                overflow: 'hidden',
             }}
         >
             {/* Background blobs */}
@@ -89,20 +130,33 @@ export default function Hero() {
                 }}
             />
 
-            <Row justify="center" align="middle" style={{ width: '100%', margin: 0, padding: '0 16px' }}>
-                <Col xs={24} md={18} lg={12} style={{ padding: 0, maxWidth: '100%' }}>
+            <Row justify="center" align="middle" style={{ width: '100%', padding: '0 16px' }}>
+                <Col xs={24} md={18} lg={12}>
                     <Title
                         level={1}
                         style={{
                             textAlign: 'center',
-                            fontSize: 'clamp(28px, 5vw, 52px)',
+                            fontSize: 'clamp(32px, 5vw, 56px)',
                             lineHeight: 1.2,
-                            color: '#020617',
                         }}
                     >
                         {renderColoredText(displayText)}
-                        <span className="cursor"></span>
+                        <span className="cursor" />
                     </Title>
+
+                    {phase === 'thinking' && (
+                        <Paragraph
+                            style={{
+                                textAlign: 'center',
+                                marginTop: 8,
+                                fontSize: 14,
+                                color: '#64748b',
+                                letterSpacing: 1,
+                            }}
+                        >
+                            AI thinking<span className="dots">...</span>
+                        </Paragraph>
+                    )}
 
                     <Paragraph
                         style={{
@@ -114,8 +168,7 @@ export default function Hero() {
                             marginInline: 'auto',
                         }}
                     >
-                        Transforming ideas into robust web, mobile, and cloud solutions
-                        with modern technologies.
+                        Transforming ideas into modern web, mobile, and cloud solutions.
                     </Paragraph>
 
                     {/* CTA */}
@@ -125,12 +178,17 @@ export default function Hero() {
                                 placeholder="Enter your email address"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                style={{ width: '100%', borderRadius: 32, padding: '14px 18px' }}
+                                style={{
+                                    width: '100%',
+                                    borderRadius: 32,
+                                    padding: '14px 18px',
+                                }}
                             />
                         </Col>
 
-                        <Col xs="auto" style={{ textAlign: 'center' }}>
+                        <Col xs="auto">
                             <Button
+                                onClick={handleSubmit}
                                 style={{
                                     borderRadius: 32,
                                     background: primaryColor,
@@ -141,7 +199,6 @@ export default function Hero() {
                                     padding: '0 32px',
                                     minWidth: 160,
                                 }}
-                                onClick={handleSubmit}
                             >
                                 Talk to Us
                             </Button>
@@ -153,14 +210,27 @@ export default function Hero() {
             <style jsx>{`
                 .cursor {
                     display: inline-block;
-                    width: 1px;
+                    width: 2px;
+                    height: 1em;
                     background-color: #020617;
                     animation: blink 1s infinite;
-                    margin-left: 2px;
+                    margin-left: 4px;
                 }
+
+                .dots {
+                    animation: dots 1.4s infinite;
+                }
+
                 @keyframes blink {
                     0%, 50%, 100% { opacity: 1; }
                     25%, 75% { opacity: 0; }
+                }
+
+                @keyframes dots {
+                    0% { content: ''; }
+                    33% { content: '.'; }
+                    66% { content: '..'; }
+                    100% { content: '...'; }
                 }
             `}</style>
         </section>
