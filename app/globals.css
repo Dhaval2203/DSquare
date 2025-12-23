@@ -137,3 +137,19 @@ body {
   border-color: var(--dsq-secondary) !important;
   box-shadow: 0 0 0 2px var(--dsq-secondary-rgba) !important;
 }
+
+.footer-copy {
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 576px) {
+  .footer-copy {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+}

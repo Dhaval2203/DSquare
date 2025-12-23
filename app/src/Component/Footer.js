@@ -37,14 +37,22 @@ export default function FooterComponent() {
             </Space>
 
             {/* Copyright */}
-            <div style={{ marginBottom: 6 }}>
+            <div
+                style={{
+                    marginBottom: 6,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    width: '100%',
+                }}
+            >
                 <Text
+                    className="footer-copy"
                     style={{
                         fontWeight: 600,
-                        display: 'inline-flex',
+                        display: 'flex',
                         alignItems: 'center',
                         gap: 6,
-                        flexWrap: 'wrap',
+                        textAlign: 'center',
                     }}
                 >
                     <FaRegCopyright
@@ -59,9 +67,15 @@ export default function FooterComponent() {
                     </span>
 
                     <span style={{ color: primaryColor }}>D Square</span>
-                    -
-                    <span style={{ color: secondaryColor }}>Unlock the Future</span>
-                    ·
+
+                    <span className="desktop-only">-</span>
+
+                    <span style={{ color: secondaryColor }}>
+                        Unlock the Future
+                    </span>
+
+                    <span className="desktop-only">·</span>
+
                     <span
                         style={{
                             color: accentColor,
@@ -74,7 +88,6 @@ export default function FooterComponent() {
                     </span>
                 </Text>
             </div>
-
 
             {/* Tagline */}
             <Text style={{ color: secondaryTextColor, fontWeight: 400, fontSize: 14 }}>
