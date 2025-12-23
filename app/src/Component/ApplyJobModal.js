@@ -3,6 +3,7 @@
 import { Card, Col, Modal, Row, Typography } from 'antd';
 import { accentColor, primaryColor, secondaryColor, secondaryTextColor, whiteColor } from '../Utils/Colors';
 import { companyEmail, companyPhone, DSquareIconForCareerPage } from '../Utils/Const.js';
+import RoleCard from './RoleCard';
 const { Title, Paragraph, Text } = Typography;
 
 export default function ApplyJobModal(props) {
@@ -99,11 +100,10 @@ export default function ApplyJobModal(props) {
             }
         >
             {/* Modal Header */}
-            <div style={{ padding: '24px', background: '#fff', position: 'sticky', top: 0, zIndex: 10 }}>
+            <div style={{ background: whiteColor, position: 'sticky', top: 0, zIndex: 10 }}>
                 <Title
                     level={4}
                     style={{
-                        // marginBottom: 6,
                         fontWeight: 700,
                         letterSpacing: '0.3px',
                         lineHeight: 1.3,
@@ -140,65 +140,26 @@ export default function ApplyJobModal(props) {
             </div>
 
             {/* Cards */}
-            <Row gutter={16} style={{ margin: 0, padding: 0 }}>
-                {/* Key Responsibilities Card */}
-                <Col xs={24} md={12} style={{ padding: 0 }}>
-                    <Card
-                        title={<span style={{ color: secondaryColor, fontWeight: 600 }}>Key Responsibilities</span>}
-                        style={{
-                            borderRadius: 12,
-                            maxHeight: '40vh',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            overflow: 'hidden',
-                            marginRight: 8, // optional spacing between cards
-                        }}
-                        bodyStyle={{
-                            padding: 16,
-                            overflowY: 'auto',
-                            flex: 1,
-                        }}
-                        headStyle={{
-                            position: 'sticky',
-                            top: 0,
-                            background: whiteColor,
-                            zIndex: 1,
-                            borderBottom: `5px dotted ${primaryColor}80`,
-                        }}
-                    >
-                        {renderListWithBullets(selectedRole.responsibilities, primaryColor, secondaryColor)}
-                    </Card>
+            <Row gutter={[16, 16]}> {/* gutter: [horizontal, vertical] */}
+                <Col xs={24} md={12}>
+                    <RoleCard
+                        title="Key Responsibilities"
+                        items={selectedRole.responsibilities}
+                        titleColor={secondaryColor}
+                        bulletColor={primaryColor}
+                    />
                 </Col>
 
-                {/* Requirements Card */}
-                <Col xs={24} md={12} style={{ padding: 0 }}>
-                    <Card
-                        title={<span style={{ color: primaryColor, fontWeight: 600 }}>Requirements</span>}
-                        style={{
-                            borderRadius: 12,
-                            maxHeight: '40vh',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            overflow: 'hidden',
-                            marginLeft: 8, // optional spacing between cards
-                        }}
-                        bodyStyle={{
-                            padding: 16,
-                            overflowY: 'auto',
-                            flex: 1,
-                        }}
-                        headStyle={{
-                            position: 'sticky',
-                            top: 0,
-                            background: whiteColor,
-                            zIndex: 1,
-                            borderBottom: `5px dotted ${secondaryColor}80`,
-                        }}
-                    >
-                        {renderListWithBullets(selectedRole.requirements, secondaryColor, primaryColor)}
-                    </Card>
+                <Col xs={24} md={12}>
+                    <RoleCard
+                        title="Requirements"
+                        items={selectedRole.requirements}
+                        titleColor={primaryColor}
+                        bulletColor={secondaryColor}
+                    />
                 </Col>
             </Row>
+
         </Modal>
     );
 }
