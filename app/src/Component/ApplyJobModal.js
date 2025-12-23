@@ -1,8 +1,8 @@
 'use client';
 
 import { Card, Col, Modal, Row, Typography } from 'antd';
-import { primaryColor, secondaryColor, secondaryTextColor } from '../Utils/Colors';
-import { DSquareIconForCareerPage } from '../Utils/Const.js';
+import { accentColor, primaryColor, secondaryColor, secondaryTextColor, whiteColor } from '../Utils/Colors';
+import { companyEmail, companyPhone, DSquareIconForCareerPage } from '../Utils/Const.js';
 const { Title, Paragraph, Text } = Typography;
 
 export default function ApplyJobModal(props) {
@@ -54,10 +54,29 @@ export default function ApplyJobModal(props) {
         <Modal
             open={open}
             onCancel={onClose}
-            footer={null}
-            width={800}
+            footer={
+                <div
+                    style={{
+                        textAlign: 'center',
+                        width: '100%',
+                        padding: '16px 0',
+                        borderTop: `1px solid ${secondaryColor}30`,
+                        display: 'flex',
+                        justifyContent: 'center',
+                        gap: '16px',
+                        flexWrap: 'wrap',
+                    }}
+                >
+                    <Text style={{ fontWeight: 600, fontSize: 14, color: accentColor }}>
+                        Apply At: <span style={{ color: primaryColor, fontWeight: 700 }}>{companyEmail} </span>
+                        | <span style={{ color: secondaryColor, fontWeight: 700 }}>{companyPhone}</span>
+                    </Text>
+                </div>
+            }
+
+            width={700} // modal width
             centered
-            bodyStyle={{ padding: 0, maxHeight: '70vh', overflow: 'hidden' }}
+            title={null}
             closeIcon={
                 <div
                     style={{
@@ -79,7 +98,6 @@ export default function ApplyJobModal(props) {
                     ×
                 </div>
             }
-            title={null} // remove modal title, use custom header inside scroll container
         >
             {/* Modal Header */}
             <div style={{ padding: '24px', background: '#fff', position: 'sticky', top: 0, zIndex: 10 }}>
@@ -122,40 +140,64 @@ export default function ApplyJobModal(props) {
                 </Paragraph>
             </div>
 
-            {/* Scrollable Cards */}
-            <div style={{ padding: '0 24px 24px 24px', overflowY: 'auto', maxHeight: 'calc(70vh - 120px)' }}>
-                <Row gutter={[16, 16]} style={{ marginTop: 0 }}>
-                    <Col xs={24} md={12}>
-                        <Card
-                            style={{ height: '100%', borderRadius: 12, boxShadow: '0 4px 12px rgba(0,0,0,0.06)', padding: 0 }}
-                            bodyStyle={{ padding: 0 }}
-                        >
-                            {/* Sticky Card Header */}
-                            <div style={{ padding: '16px', position: 'sticky', top: 0, background: '#fff', zIndex: 5 }}>
-                                <span style={{ color: secondaryColor, fontWeight: 600 }}>Key Responsibilities</span>
-                            </div>
-                            <div style={{ padding: '0 16px 16px 16px' }}>
-                                {renderListWithBullets(selectedRole.responsibilities, primaryColor, secondaryColor)}
-                            </div>
-                        </Card>
-                    </Col>
+            {/* Cards */}
+            <Row gutter={16} style={{ padding: '0 24px 16px 24px', marginTop: 16 }}>
+                {/* Key Responsibilities Card */}
+                <Col xs={24} md={12}>
+                    <Card
+                        title={<span style={{ color: secondaryColor, fontWeight: 600 }}>Key Responsibilities</span>}
+                        style={{
+                            borderRadius: 12,
+                            maxHeight: '40vh',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            overflow: 'hidden',
+                        }}
+                        bodyStyle={{
+                            padding: 16,
+                            overflowY: 'auto',
+                            flex: 1,
+                        }}
+                        headStyle={{
+                            position: 'sticky',
+                            top: 0,
+                            background: whiteColor,
+                            zIndex: 1,
+                            borderBottom: `5px dotted ${primaryColor}80`,
+                        }}
+                    >
+                        {renderListWithBullets(selectedRole.responsibilities, primaryColor, secondaryColor)}
+                    </Card>
+                </Col>
 
-                    <Col xs={24} md={12}>
-                        <Card
-                            style={{ height: '100%', borderRadius: 12, boxShadow: '0 4px 12px rgba(0,0,0,0.06)', padding: 0 }}
-                            bodyStyle={{ padding: 0 }}
-                        >
-                            {/* Sticky Card Header */}
-                            <div style={{ padding: '16px', position: 'sticky', top: 0, background: '#fff', zIndex: 5 }}>
-                                <span style={{ color: primaryColor, fontWeight: 600 }}>Requirements</span>
-                            </div>
-                            <div style={{ padding: '0 16px 16px 16px' }}>
-                                {renderListWithBullets(selectedRole.requirements, secondaryColor, primaryColor)}
-                            </div>
-                        </Card>
-                    </Col>
-                </Row>
-            </div>
+                {/* Requirements Card */}
+                <Col xs={24} md={12}>
+                    <Card
+                        title={<span style={{ color: primaryColor, fontWeight: 600 }}>Requirements</span>}
+                        style={{
+                            borderRadius: 12,
+                            maxHeight: '40vh',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            overflow: 'hidden',
+                        }}
+                        bodyStyle={{
+                            padding: 16,
+                            overflowY: 'auto',
+                            flex: 1,
+                        }}
+                        headStyle={{
+                            position: 'sticky',
+                            top: 0,
+                            background: whiteColor,
+                            zIndex: 1,
+                            borderBottom: `5px dotted ${secondaryColor}80`,
+                        }}
+                    >
+                        {renderListWithBullets(selectedRole.requirements, secondaryColor, primaryColor)}
+                    </Card>
+                </Col>
+            </Row>
         </Modal>
     );
 }

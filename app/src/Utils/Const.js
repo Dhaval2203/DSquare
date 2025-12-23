@@ -1,6 +1,11 @@
 import { GlobalOutlined, HomeOutlined, MailOutlined, PhoneOutlined } from "@ant-design/icons";
 import { whiteColor } from "./Colors";
 
+
+export const comapnyName = "D Square Infotech";
+export const companyEmail = "info@dsquareinfotech.com";
+export const companyPhone = "+91 98765 43210";
+
 export const menuItems = [
     { key: "home", label: "Home" },
     { key: "services", label: "Services" },
