@@ -2,7 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import { Button, Input, Typography } from 'antd';
-import { primaryColor, secondaryColor, accentColor, secondaryTextColor, whiteColor } from '../Utils/Colors';
+import {
+    primaryColor,
+    secondaryColor,
+    accentColor,
+    whiteColor,
+} from '../Utils/Colors';
 import RotatingEarthSVG from '../Utils/RotatingEarthSVG';
 
 const { Title, Paragraph } = Typography;
@@ -18,6 +23,7 @@ export default function HeroLeftSide() {
     const secondText = 'craft SMART, SCALABLE, and IMPACTFUL solutions.';
     const baseText = 'We ';
 
+    /* ------------------ TYPEWRITER LOGIC ------------------ */
     useEffect(() => {
         let interval;
         let timeout;
@@ -70,11 +76,13 @@ export default function HeroLeftSide() {
         };
     }, [phase]);
 
+    /* ------------------ CURSOR BLINK ------------------ */
     useEffect(() => {
         const blink = setInterval(() => setShowCursor((v) => !v), 500);
         return () => clearInterval(blink);
     }, []);
 
+    /* ------------------ COLORIZED WORDS ------------------ */
     const renderColoredText = (text) => {
         const rules = [
             { word: 'BUILD', color: primaryColor },
@@ -105,15 +113,45 @@ export default function HeroLeftSide() {
                 i++;
             }
         }
-
         return elements;
     };
+
+    /* ------------------ CARET STYLE ------------------ */
+    const caretStyle = {
+        display: 'inline-block',
+        verticalAlign: 'bottom',
+        marginLeft: 6,
+        opacity: showCursor ? 1 : 0,
+        transition: 'opacity 0.2s ease',
+        borderRadius: 2,
+        height: '1em',
+
+        ...(phase === 'thinking'
+            ? {
+                width: 120,
+                height: 3,
+                background: `linear-gradient(
+                            90deg,
+                            ${primaryColor}40,
+                            ${primaryColor},
+                            ${primaryColor}40
+                )`,
+                position: 'relative',
+                top: 12,
+            }
+            : {
+                width: 3,
+                background: primaryColor,
+            }),
+    };
+
+    const showCaret = phase !== 'done';
 
     return (
         <div
             style={{
                 position: 'relative',
-                minHeight: '100vh', // ensures full viewport height
+                minHeight: '100vh',
                 overflow: 'hidden',
                 padding: '80px 16px',
                 textAlign: 'center',
@@ -124,8 +162,6 @@ export default function HeroLeftSide() {
                 style={{
                     position: 'absolute',
                     inset: 0,
-                    height: '100%',
-                    width: '100%',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -148,19 +184,7 @@ export default function HeroLeftSide() {
                     }}
                 >
                     {renderColoredText(displayText)}
-                    {phase !== 'done' && (
-                        <span
-                            style={{
-                                display: 'inline-block',
-                                width: 3,
-                                height: '1em',
-                                background: primaryColor,
-                                marginLeft: 4,
-                                verticalAlign: 'bottom',
-                                opacity: showCursor ? 1 : 0,
-                            }}
-                        />
-                    )}
+                    {showCaret && <span style={caretStyle} />}
                 </Title>
 
                 {phase === 'done' && (
@@ -205,7 +229,6 @@ export default function HeroLeftSide() {
                                 height: 48,
                                 fontWeight: 600,
                                 color: whiteColor,
-                                // padding: '0 32px',
                             }}
                         >
                             Talk to Us
