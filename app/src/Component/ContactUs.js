@@ -59,7 +59,7 @@ export default function ContactUs() {
                         once={false}
                         amount={0.5}
                     />
-                    <Paragraph style={{ color: secondaryTextColor, fontSize: 16, marginTop: 16 }}>
+                    <Paragraph style={{ color: secondaryTextColor, fontSize: 16 }}>
                         Have a question, idea, or just want to say hi? We’d love to hear from you! Reach out via phone, email, or our location.
                     </Paragraph>
 

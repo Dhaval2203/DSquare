@@ -23,8 +23,8 @@ export default function SoftwareDevelopmentProcess() {
     return (
         <>
             <AnimatedTitle
-                words={["Our", "Software Development", "Process"]}
-                highlightWords={["Software Development"]}
+                words={["Our Software", "Development", "Process"]}
+                highlightWords={["Development"]}
                 once={false}
                 amount={0.5}
             />
