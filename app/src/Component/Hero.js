@@ -214,19 +214,35 @@ const LeftSide = () => {
 };
 
 // Right Side Component: floating circles + tech orbs
-const RightSide = () => (
-    <div style={{ position: 'relative', height: '400px', overflow: 'hidden' }}>
-        <div className="circle circle1" />
-        <div className="circle circle2" />
-        <div className="circle circle3" />
-        <div className="circle circle4" />
+const RightSide = () => {
+    const [showOrbs, setShowOrbs] = useState(false);
 
-        <div className="orb orb1"><span className="orbLabel">⚡ AI Ideas</span></div>
-        <div className="orb orb2"><span className="orbLabel">☁️ Cloud</span></div>
-        <div className="orb orb3"><span className="orbLabel">🌐 Web</span></div>
-        <div className="orb orb4"><span className="orbLabel">📱 Mobile</span></div>
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setShowOrbs(true);
+        }, 100); // 1 second delay
 
-        <style jsx>{`
+        return () => clearTimeout(timer);
+    }, []);
+
+    return (
+        <div style={{ position: 'relative', height: '400px', overflow: 'hidden' }}>
+            <div className="circle circle1" />
+            <div className="circle circle2" />
+            <div className="circle circle3" />
+            <div className="circle circle4" />
+
+            {
+                showOrbs ?
+                    <>
+                        <div className="orb orb1"><span className="orbLabel">⚡ AI Ideas</span></div>
+                        <div className="orb orb2"><span className="orbLabel">☁️ Cloud</span></div>
+                        <div className="orb orb3"><span className="orbLabel">🌐 Web</span></div>
+                        <div className="orb orb4"><span className="orbLabel">📱 Mobile</span></div>
+                    </> : null
+            }
+
+            <style jsx>{`
       .circle { position: absolute; border-radius: 50%; opacity: 0.3; animation: float 6s ease-in-out infinite alternate; }
       .circle1 { width: 80px; height: 80px; background: ${primaryColor}; top: 10%; left: 20%; }
       .circle2 { width: 60px; height: 60px; background: ${secondaryColor}; top: 40%; left: 60%; }
@@ -244,8 +260,9 @@ const RightSide = () => (
 
       @keyframes floatOrb { 0% { transform: translateY(0); } 50% { transform: translateY(-18px); } 100% { transform: translateY(0); } }
     `}</style>
-    </div>
-);
+        </div>
+    )
+};
 
 // Main Hero combining left + right
 export default function Hero() {
