@@ -73,7 +73,6 @@ export default function ApplyJobModal(props) {
                     </Text>
                 </div>
             }
-
             width={700} // modal width
             centered
             title={null}
@@ -104,7 +103,7 @@ export default function ApplyJobModal(props) {
                 <Title
                     level={4}
                     style={{
-                        marginBottom: 6,
+                        // marginBottom: 6,
                         fontWeight: 700,
                         letterSpacing: '0.3px',
                         lineHeight: 1.3,
@@ -135,15 +134,15 @@ export default function ApplyJobModal(props) {
                     Review the role details before applying
                 </Text>
 
-                <Paragraph style={{ color: secondaryTextColor, marginTop: 16 }}>
+                <Paragraph style={{ color: secondaryTextColor }}>
                     {selectedRole.description}
                 </Paragraph>
             </div>
 
             {/* Cards */}
-            <Row gutter={16} style={{ padding: '0 24px 16px 24px', marginTop: 16 }}>
+            <Row gutter={16} style={{ margin: 0, padding: 0 }}>
                 {/* Key Responsibilities Card */}
-                <Col xs={24} md={12}>
+                <Col xs={24} md={12} style={{ padding: 0 }}>
                     <Card
                         title={<span style={{ color: secondaryColor, fontWeight: 600 }}>Key Responsibilities</span>}
                         style={{
@@ -152,6 +151,7 @@ export default function ApplyJobModal(props) {
                             display: 'flex',
                             flexDirection: 'column',
                             overflow: 'hidden',
+                            marginRight: 8, // optional spacing between cards
                         }}
                         bodyStyle={{
                             padding: 16,
@@ -171,7 +171,7 @@ export default function ApplyJobModal(props) {
                 </Col>
 
                 {/* Requirements Card */}
-                <Col xs={24} md={12}>
+                <Col xs={24} md={12} style={{ padding: 0 }}>
                     <Card
                         title={<span style={{ color: primaryColor, fontWeight: 600 }}>Requirements</span>}
                         style={{
@@ -180,6 +180,7 @@ export default function ApplyJobModal(props) {
                             display: 'flex',
                             flexDirection: 'column',
                             overflow: 'hidden',
+                            marginLeft: 8, // optional spacing between cards
                         }}
                         bodyStyle={{
                             padding: 16,
