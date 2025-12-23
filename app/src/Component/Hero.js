@@ -118,18 +118,21 @@ const LeftSide = () => {
         <div style={{ textAlign: 'center' }}>
             <Title level={1} style={{ fontSize: 'clamp(32px, 5vw, 56px)', lineHeight: 1.2 }}>
                 {renderColoredText(displayText)}
-                <span
-                    style={{
-                        display: 'inline-block',
-                        width: 2,
-                        height: '1em',
-                        background: '#020617',
-                        marginLeft: 4,
-                        verticalAlign: 'bottom',
-                        opacity: showCursor ? 1 : 0,
-                        transition: 'opacity 0.1s',
-                    }}
-                />
+                {
+                    phase !== 'done' && (
+                        <span
+                            style={{
+                                display: 'inline-block',
+                                width: 3,
+                                height: '1em',
+                                background: primaryColor,
+                                marginLeft: 4,
+                                verticalAlign: 'bottom',
+                                opacity: showCursor ? 1 : 0,
+                                transition: 'opacity 0.1s',
+                            }}
+                        />)
+                }
             </Title>
 
             {phase === 'thinking' && (
