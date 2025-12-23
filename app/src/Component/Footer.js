@@ -1,8 +1,8 @@
 'use client';
 import { Layout, Space, Typography } from 'antd';
 import { FaFacebook, FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
-import { primaryColor, secondaryColor, secondaryTextColor } from '../Utils/Colors';
-
+import { accentColor, primaryColor, secondaryColor, secondaryTextColor } from '../Utils/Colors';
+import { FaRegCopyright } from "react-icons/fa";
 const { Footer } = Layout;
 const { Text } = Typography;
 
@@ -38,12 +38,43 @@ export default function FooterComponent() {
 
             {/* Copyright */}
             <div style={{ marginBottom: 6 }}>
-                <Text style={{ fontWeight: 600 }}>
-                    <span style={{ color: secondaryTextColor }}>© {new Date().getFullYear()}&nbsp;</span>
-                    <span style={{ color: primaryColor }}>D Square</span> ·{' '}
+                <Text
+                    style={{
+                        fontWeight: 600,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 6,
+                        flexWrap: 'wrap',
+                    }}
+                >
+                    <FaRegCopyright
+                        style={{
+                            fontSize: 14,
+                            color: secondaryTextColor,
+                        }}
+                    />
+
+                    <span style={{ color: secondaryTextColor }}>
+                        {new Date().getFullYear()}
+                    </span>
+
+                    <span style={{ color: primaryColor }}>D Square</span>
+                    -
                     <span style={{ color: secondaryColor }}>Unlock the Future</span>
+                    ·
+                    <span
+                        style={{
+                            color: accentColor,
+                            fontWeight: 500,
+                            fontSize: 13,
+                            letterSpacing: '0.3px',
+                        }}
+                    >
+                        All rights reserved
+                    </span>
                 </Text>
             </div>
+
 
             {/* Tagline */}
             <Text style={{ color: secondaryTextColor, fontWeight: 400, fontSize: 14 }}>
