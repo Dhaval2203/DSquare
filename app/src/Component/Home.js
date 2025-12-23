@@ -1,10 +1,11 @@
 'use client';
-import { Button, Layout, Typography } from 'antd';
+import { Layout } from 'antd';
 import 'antd/dist/reset.css';
 import { backgroundColor, whiteColor } from '../Utils/Colors';
 import AboutUs from './AboutUs';
 import Career from './Career';
 import ClientReview from './ClientReview';
+import ContactUs from './ContactUs';
 import FooterComponent from './Footer';
 import Headers from './Header';
 import Hero from './Hero';
@@ -13,7 +14,6 @@ import SoftwareDevelopmentProcess from './SoftwareDevelopmentProcess';
 import Technologies from './Technologies';
 
 const { Content } = Layout;
-const { Title } = Typography;
 
 export default function HomePage() {
     return (
@@ -51,19 +51,16 @@ export default function HomePage() {
                     <ClientReview />
                 </section>
 
-                <selection id="career" style={{ padding: '40px 16px', overflow: 'hidden' }}>
+                <section id="career" style={{ padding: '40px 16px', overflow: 'hidden' }}>
                     <Career />
-                </selection>
+                </section>
 
                 <section id="about" style={{ padding: '80px 16px', background: '#f1f5f9', textAlign: 'center', overflow: 'hidden' }}>
                     <AboutUs />
                 </section>
 
                 <section id="contact" style={{ padding: '80px 16px', textAlign: 'center', overflow: 'hidden' }}>
-                    <Title level={2} style={{ color: '#020617' }}>Contact Us</Title>
-                    <Button type="primary" size="large" onClick={() => (window.location.href = 'mailto:info@example.com')}>
-                        Email Us
-                    </Button>
+                    <ContactUs />
                 </section>
             </Content>
 

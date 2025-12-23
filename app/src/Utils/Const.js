@@ -1,3 +1,6 @@
+import { GlobalOutlined, HomeOutlined, MailOutlined, PhoneOutlined } from "@ant-design/icons";
+import { whiteColor } from "./Colors";
+
 export const menuItems = [
     { key: "home", label: "Home" },
     { key: "services", label: "Services" },
@@ -99,6 +102,20 @@ export const aboutSections = [{
 }, {
     title: 'Our Vision',
     description: 'To be recognized as a global technology partner, shaping the future with innovative solutions and meaningful digital experiences.',
+}];
+
+export const contactItems = [{
+    icon: <HomeOutlined style={{ fontSize: 24, color: whiteColor }} />,
+    title: 'Remote Headquarters',
+    description: 'We operate fully remotely. Connect with us online from anywhere in the world.',
+}, {
+    icon: <PhoneOutlined style={{ fontSize: 24, color: whiteColor }} />,
+    title: 'Phone / WhatsApp',
+    description: '+91 98765 43210',
+}, {
+    icon: <MailOutlined style={{ fontSize: 24, color: whiteColor }} />,
+    title: 'Email Address',
+    description: 'info@dsquareinfotech.com',
 }];
 
 export function icon() {

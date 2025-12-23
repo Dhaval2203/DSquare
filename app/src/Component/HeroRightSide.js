@@ -22,10 +22,10 @@ export default function HeroRightSide() {
             {
                 showOrbs ?
                     <>
-                        <div className="orb orb1"><span className="orbLabel">⚡ AI Ideas</span></div>
-                        <div className="orb orb2"><span className="orbLabel">☁️ Cloud</span></div>
                         <div className="orb orb3"><span className="orbLabel">🌐 Web</span></div>
                         <div className="orb orb4"><span className="orbLabel">📱 Mobile</span></div>
+                        <div className="orb orb2"><span className="orbLabel">☁️ Cloud</span></div>
+                        <div className="orb orb1"><span className="orbLabel">⚡ AI Ideas</span></div>
                     </> : null
             }
 
