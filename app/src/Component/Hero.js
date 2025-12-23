@@ -1,69 +1,76 @@
 'use client';
+
 import { Button, Input, Typography, Row, Col } from 'antd';
 import { useState, useEffect } from 'react';
-import { primaryColor, secondaryColor, accentColor } from '../Utils/Colors';
+import { primaryColor, secondaryColor, accentColor, secondaryTextColor } from '../Utils/Colors';
 
 const { Title, Paragraph } = Typography;
 
-export default function Hero() {
+// Left Side Component: current animated typing + CTA
+const LeftSide = () => {
     const [email, setEmail] = useState('');
     const [displayText, setDisplayText] = useState('');
-    const [phase, setPhase] = useState('typing'); // typing → thinking → replacing
+    const [phase, setPhase] = useState('typing');
+    const [showCTA, setShowCTA] = useState(false);
 
-    const initialText = 'We BUILD solution.';
-    const finalText = 'We craft SMART, SCALABLE, and IMPACTFUL solutions.';
+    const firstText = 'We BUILD solution.';
+    const secondText = 'craft SMART, SCALABLE, and IMPACTFUL solutions.';
+    const baseText = 'We ';
 
     useEffect(() => {
-        let index = 0;
+        let interval;
         let timeout;
 
         if (phase === 'typing') {
-            const interval = setInterval(() => {
-                setDisplayText(initialText.slice(0, index + 1));
-                index++;
-
-                if (index === initialText.length) {
+            let i = 0;
+            interval = setInterval(() => {
+                setDisplayText(firstText.slice(0, i + 1));
+                i++;
+                if (i === firstText.length) {
                     clearInterval(interval);
-                    timeout = setTimeout(() => setPhase('thinking'), 800);
+                    timeout = setTimeout(() => setPhase('thinking'), 900);
                 }
-            }, 90);
-
-            return () => clearInterval(interval);
+            }, 140);
         }
 
         if (phase === 'thinking') {
-            timeout = setTimeout(() => {
-                setDisplayText('');
-                setPhase('replacing');
-            }, 900);
+            timeout = setTimeout(() => setPhase('backspacing'), 1300);
         }
 
-        if (phase === 'replacing') {
-            index = 0;
-            const interval = setInterval(() => {
-                setDisplayText(finalText.slice(0, index + 1));
-                index++;
+        if (phase === 'backspacing') {
+            interval = setInterval(() => {
+                setDisplayText((prev) => {
+                    if (prev.length <= baseText.length) {
+                        clearInterval(interval);
+                        setPhase('retyping');
+                        return baseText;
+                    }
+                    return prev.slice(0, -1);
+                });
+            }, 90);
+        }
 
-                if (index === finalText.length) {
+        if (phase === 'retyping') {
+            let i = 0;
+            interval = setInterval(() => {
+                setDisplayText(baseText + secondText.slice(0, i + 1));
+                i++;
+                if (i === secondText.length) {
                     clearInterval(interval);
+                    setPhase('done');
+                    setTimeout(() => setShowCTA(true), 400);
                 }
-            }, 60);
-
-            return () => clearInterval(interval);
+            }, 110);
         }
 
-        return () => clearTimeout(timeout);
+        return () => {
+            clearInterval(interval);
+            clearTimeout(timeout);
+        };
     }, [phase]);
 
-    const handleSubmit = () => {
-        if (!email) return;
-        alert(`Thank you! We will reach out to ${email}`);
-        setEmail('');
-    };
-
-    // Keyword-based coloring (AI-safe during typing)
     const renderColoredText = (text) => {
-        const colorRules = [
+        const rules = [
             { word: 'BUILD', color: primaryColor },
             { word: 'SMART,', color: primaryColor },
             { word: 'SCALABLE,', color: secondaryColor },
@@ -74,10 +81,9 @@ export default function Hero() {
             let color = '#020617';
             let fontWeight = 600;
 
-            colorRules.forEach(({ word, color: ruleColor }) => {
+            rules.forEach(({ word, color: ruleColor }) => {
                 const start = text.indexOf(word);
                 const end = start + word.length;
-
                 if (start !== -1 && index >= start && index < end) {
                     color = ruleColor;
                     fontWeight = 700;
@@ -93,93 +99,44 @@ export default function Hero() {
     };
 
     return (
-        <section
-            style={{
-                minHeight: '100vh',
-                display: 'flex',
-                alignItems: 'center',
-                background: '#f5f6fa',
-                padding: '64px 0',
-                position: 'relative',
-                overflow: 'hidden',
-            }}
-        >
-            {/* Background blobs */}
-            <div
+        <div style={{ textAlign: 'center' }}>
+            <Title
+                level={1}
                 style={{
-                    position: 'absolute',
-                    width: 260,
-                    height: 260,
-                    borderRadius: '50%',
-                    background: primaryColor + '33',
-                    top: '-80px',
-                    left: '-80px',
-                    filter: 'blur(120px)',
+                    fontSize: 'clamp(32px, 5vw, 56px)',
+                    lineHeight: 1.2,
                 }}
-            />
-            <div
-                style={{
-                    position: 'absolute',
-                    width: 320,
-                    height: 320,
-                    borderRadius: '50%',
-                    background: secondaryColor + '33',
-                    bottom: '-120px',
-                    right: '-120px',
-                    filter: 'blur(140px)',
-                }}
-            />
+            >
+                {renderColoredText(displayText)}
+                <span className="cursor" />
+            </Title>
 
-            <Row justify="center" align="middle" style={{ width: '100%', padding: '0 16px' }}>
-                <Col xs={24} md={18} lg={12}>
-                    <Title
-                        level={1}
-                        style={{
-                            textAlign: 'center',
-                            fontSize: 'clamp(32px, 5vw, 56px)',
-                            lineHeight: 1.2,
-                        }}
-                    >
-                        {renderColoredText(displayText)}
-                        <span className="cursor" />
-                    </Title>
+            {phase === 'thinking' && <div className="ai-pause" />}
 
-                    {phase === 'thinking' && (
-                        <Paragraph
-                            style={{
-                                textAlign: 'center',
-                                marginTop: 8,
-                                fontSize: 14,
-                                color: '#64748b',
-                                letterSpacing: 1,
-                            }}
-                        >
-                            AI thinking<span className="dots">...</span>
-                        </Paragraph>
-                    )}
+            {phase === 'done' && (
+                <Paragraph
+                    style={{
+                        fontSize: 16,
+                        color: secondaryTextColor,
+                        marginTop: 24,
+                        maxWidth: 520,
+                        marginInline: 'auto',
+                        animation: 'fadeSlideUp 0.8s ease forwards',
+                    }}
+                >
+                    Transforming ideas into modern web, mobile, and cloud solutions.
+                </Paragraph>
+            )}
 
-                    <Paragraph
-                        style={{
-                            textAlign: 'center',
-                            fontSize: 'clamp(14px, 2.5vw, 16px)',
-                            color: '#475569',
-                            marginTop: 16,
-                            maxWidth: 520,
-                            marginInline: 'auto',
-                        }}
-                    >
-                        Transforming ideas into modern web, mobile, and cloud solutions.
-                    </Paragraph>
-
-                    {/* CTA */}
-                    <Row gutter={[12, 12]} justify="center" style={{ marginTop: 32 }}>
+            {showCTA && (
+                <div className="cta">
+                    <Row gutter={[12, 12]} justify="center">
                         <Col xs={24} sm={16} md={12}>
                             <Input
                                 placeholder="Enter your email address"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 style={{
-                                    width: '100%',
                                     borderRadius: 32,
                                     padding: '14px 18px',
                                 }}
@@ -188,7 +145,6 @@ export default function Hero() {
 
                         <Col xs="auto">
                             <Button
-                                onClick={handleSubmit}
                                 style={{
                                     borderRadius: 32,
                                     background: primaryColor,
@@ -197,42 +153,162 @@ export default function Hero() {
                                     fontWeight: 600,
                                     color: '#fff',
                                     padding: '0 32px',
-                                    minWidth: 160,
                                 }}
                             >
                                 Talk to Us
                             </Button>
                         </Col>
                     </Row>
-                </Col>
-            </Row>
+                </div>
+            )}
 
             <style jsx>{`
-                .cursor {
-                    display: inline-block;
-                    width: 2px;
-                    height: 1em;
-                    background-color: #020617;
-                    animation: blink 1s infinite;
-                    margin-left: 4px;
-                }
+        .cursor {
+          display: inline-block;
+          width: 2px;
+          height: 1em;
+          background: #020617;
+          animation: blink 1s infinite;
+          margin-left: 4px;
+        }
 
-                .dots {
-                    animation: dots 1.4s infinite;
-                }
+        .ai-pause {
+          width: 90px;
+          height: 3px;
+          margin: 12px auto 0;
+          border-radius: 2px;
+          background: linear-gradient(90deg, ${primaryColor}, ${secondaryColor});
+          animation: breathe 1.6s ease-in-out infinite;
+          opacity: 0.5;
+        }
 
-                @keyframes blink {
-                    0%, 50%, 100% { opacity: 1; }
-                    25%, 75% { opacity: 0; }
-                }
+        .cta {
+          margin-top: 32px;
+          animation: fadeUp 0.6s ease forwards;
+        }
 
-                @keyframes dots {
-                    0% { content: ''; }
-                    33% { content: '.'; }
-                    66% { content: '..'; }
-                    100% { content: '...'; }
-                }
-            `}</style>
+        @keyframes blink {
+          0%, 50%, 100% { opacity: 1; }
+          25%, 75% { opacity: 0; }
+        }
+
+        @keyframes breathe {
+          0% { transform: scaleX(0.7); opacity: 0.3; }
+          50% { transform: scaleX(1); opacity: 0.6; }
+          100% { transform: scaleX(0.7); opacity: 0.3; }
+        }
+
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(12px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeSlideUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
+        </div>
+    );
+};
+
+// Right Side Component: floating circles + tech cards
+const RightSide = () => {
+    return (
+        <div style={{ position: 'relative', height: '400px', overflow: 'hidden' }}>
+            {/* Floating circles */}
+            <div className="circle circle1" />
+            <div className="circle circle2" />
+            <div className="circle circle3" />
+            <div className="circle circle4" />
+
+            {/* Modern floating orbs / blobs */}
+            <div className="orb orb1">
+                <span className="orbLabel">⚡ AI Ideas</span>
+            </div>
+            <div className="orb orb2">
+                <span className="orbLabel">☁️ Cloud</span>
+            </div>
+            <div className="orb orb3">
+                <span className="orbLabel">🌐 Web</span>
+            </div>
+            <div className="orb orb4">
+                <span className="orbLabel">📱 Mobile</span>
+            </div>
+
+            <style jsx>{`
+        /* Floating circles (unchanged) */
+        .circle {
+          position: absolute;
+          border-radius: 50%;
+          opacity: 0.3;
+          animation: float 6s ease-in-out infinite alternate;
+        }
+        .circle1 { width: 80px; height: 80px; background: ${primaryColor}; top: 10%; left: 20%; }
+        .circle2 { width: 60px; height: 60px; background: ${secondaryColor}; top: 40%; left: 60%; }
+        .circle3 { width: 100px; height: 100px; background: ${accentColor}; top: 70%; left: 30%; }
+        .circle4 { width: 50px; height: 50px; background: ${secondaryTextColor}; top: 25%; left: 75%; }
+
+        @keyframes float {
+          0% { transform: translateY(0) translateX(0); }
+          50% { transform: translateY(-20px) translateX(10px); }
+          100% { transform: translateY(0) translateX(0); }
+        }
+
+        /* Modern orbs: darker than circles but lighter than solid color */
+        .orb {
+          position: absolute;
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: #fff;
+          font-weight: 700;
+          text-align: center;
+          font-size: 14px;
+          background: ${primaryColor}88;
+          box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+          animation: floatOrb 5s ease-in-out infinite alternate;
+        }
+        .orb span.orbLabel { pointer-events: none; }
+
+        .orb1 { top: 20%; left: 55%; background: ${secondaryTextColor}88; animation-delay: 0s; }
+        .orb2 { top: 50%; left: 70%; background: ${secondaryColor}88; animation-delay: 1s; }
+        .orb3 { top: 65%; left: 35%; background: ${accentColor}88; animation-delay: 2s; }
+        .orb4 { top: 35%; left: 25%; background: ${primaryColor}88; animation-delay: 3s; }
+
+        @keyframes floatOrb {
+          0% { transform: translateY(0); }
+          50% { transform: translateY(-18px); }
+          100% { transform: translateY(0); }
+        }
+      `}</style>
+        </div>
+    );
+};
+
+// Main Hero component combining left + right
+export default function Hero() {
+    return (
+        <section
+            style={{
+                minHeight: '100vh',
+                display: 'flex',
+                alignItems: 'center',
+                padding: '64px 16px',
+                background: '#f5f6fa',
+            }}
+        >
+            <Row justify="center" align="middle" style={{ width: '100%' }} gutter={[32, 32]}>
+                <Col xs={24} md={12}>
+                    <LeftSide />
+                </Col>
+                <Col xs={24} md={12}>
+                    <RightSide />
+                </Col>
+            </Row>
         </section>
     );
 }
