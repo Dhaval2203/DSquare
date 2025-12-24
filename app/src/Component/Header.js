@@ -1,60 +1,64 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { MenuOutlined } from '@ant-design/icons';
 import { Button, Layout } from 'antd';
 import Image from 'next/image';
-import { useEffect, useState, useRef } from 'react';
-
+import { useEffect, useState } from 'react';
+import { TiThMenuOutline } from "react-icons/ti";
 import { accentColor, primaryColor, secondaryColor, whiteColor } from '../Utils/Colors';
 import { menuItems } from '../Utils/Const';
 import { scrollToSection } from '../Utils/Scroll';
 
 const { Header } = Layout;
 
-/* AntD components must be client-only */
-const ClientMenu = dynamic(() => import('antd').then((m) => m.Menu), { ssr: false });
-const ClientDrawer = dynamic(() => import('antd').then((m) => m.Drawer), { ssr: false });
+const ClientMenu = dynamic(
+    () => import('antd').then((m) => m.Menu),
+    { ssr: false }
+);
+
+const ClientDrawer = dynamic(
+    () => import('antd').then((m) => m.Drawer),
+    { ssr: false }
+);
 
 export default function Headers() {
     const [selectedKey, setSelectedKey] = useState('home');
     const [drawerOpen, setDrawerOpen] = useState(false);
 
-    // Prevent observer from overriding manual click
-    const isManualScrollRef = useRef(false);
-
     const handleMenuClick = ({ key }) => {
-        isManualScrollRef.current = true;
-
         setSelectedKey(key);
         scrollToSection(key);
         setDrawerOpen(false);
-
-        // unlock observer after scroll finishes
-        setTimeout(() => {
-            isManualScrollRef.current = false;
-        }, 700);
     };
 
-    /* Scroll spy */
     useEffect(() => {
         const headerEl = document.querySelector('header');
         const headerHeight = headerEl ? headerEl.offsetHeight : 90;
 
         const observer = new IntersectionObserver(
             (entries) => {
-                if (isManualScrollRef.current) return;
-
                 const visible = entries.filter((e) => e.isIntersecting);
-                if (!visible.length) return;
 
-                visible.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-                setSelectedKey(visible[0].target.id);
+                if (visible.length) {
+                    visible.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+                    setSelectedKey(visible[0].target.id);
+                    return;
+                }
+
+                const sorted = entries.sort(
+                    (a, b) =>
+                        Math.abs(a.boundingClientRect.top - headerHeight) -
+                        Math.abs(b.boundingClientRect.top - headerHeight)
+                );
+
+                if (sorted.length) {
+                    setSelectedKey(sorted[0].target.id);
+                }
             },
             {
                 root: null,
                 rootMargin: `-${headerHeight}px 0px -40% 0px`,
-                threshold: [0.25, 0.5, 0.75],
+                threshold: [0, 0.25, 0.5, 0.75, 1],
             }
         );
 
@@ -77,14 +81,16 @@ export default function Headers() {
                 background: whiteColor,
                 display: 'flex',
                 alignItems: 'center',
-                padding: '0 16px',
+                justifyContent: 'space-between', // ensures spacing between logo and menu/button
+                padding: '0 24px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+                height: 80, // increased height for better UI
             }}
         >
             {/* Logo */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <Image src="/Logo.png" alt="D Square Logo" width={40} height={40} />
-                <span style={{ fontSize: 24, fontWeight: 900 }}>
+                <Image src="/Logo.png" alt="D Square Logo" width={50} height={50} />
+                <span style={{ fontSize: 26, fontWeight: 900, lineHeight: 1 }}>
                     <span style={{ color: primaryColor }}>D</span>{' '}
                     <span style={{ color: secondaryColor }}>Square</span>{' '}
                     <span style={{ color: accentColor }}>Infotech</span>
@@ -104,12 +110,22 @@ export default function Headers() {
             </div>
 
             {/* Mobile Menu Button */}
-            <Button
-                className="mobile-menu-btn"
-                type="text"
-                icon={<MenuOutlined />}
-                onClick={() => setDrawerOpen(true)}
-            />
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                <Button
+                    className="mobile-menu-btn"
+                    type="text"
+                    icon={<TiThMenuOutline style={{ color: secondaryColor, fontSize: 28 }} />}
+                    onClick={() => setDrawerOpen(true)}
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        padding: 0,          // remove extra padding
+                        height: '100%',      // make button take full height of parent
+                        lineHeight: 1,
+                    }}
+                />
+            </div>
 
             {/* Mobile Drawer */}
             <ClientDrawer
