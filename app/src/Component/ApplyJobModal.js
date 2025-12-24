@@ -1,10 +1,11 @@
 'use client';
 
-import { Col, Modal, Row, Typography } from 'antd';
+import { Col, Layout, Modal, Row, Typography } from 'antd';
 import { accentColor, primaryColor, secondaryColor, secondaryTextColor, whiteColor } from '../Utils/Colors';
 import { companyEmail, companyPhone } from '../Utils/Const.js';
 import RoleCard from './RoleCard';
 const { Title, Paragraph, Text } = Typography;
+const { Footer } = Layout;
 
 export default function ApplyJobModal(props) {
     const { open, onClose, selectedRole } = props;
@@ -16,24 +17,29 @@ export default function ApplyJobModal(props) {
             open={open}
             onCancel={onClose}
             footer={
-                <div
+                <Footer
                     style={{
-                        textAlign: 'center',
                         width: '100%',
-                        padding: '16px 0',
                         borderTop: `1px solid ${secondaryColor}30`,
-                        display: 'flex',
-                        justifyContent: 'center',
-                        gap: '16px',
-                        flexWrap: 'wrap',
+                        padding: '16px 24px',
+                        backgroundColor: '#fff',
                     }}
                 >
-                    <Text style={{ fontWeight: 600, fontSize: 14, color: accentColor }}>
-                        Apply : <span style={{ color: primaryColor, fontWeight: 700 }}>{companyEmail} </span>
-                        | <span style={{ color: secondaryColor, fontWeight: 700 }}>{companyPhone}</span>
-                    </Text>
-                </div>
+                    <Row justify="center" align="middle" gutter={[16, 8]}>
+                        <Col>
+                            <Text style={{ fontWeight: 600, fontSize: 14, color: accentColor }}>
+                                Apply : <Text style={{ color: primaryColor, fontWeight: 700 }}>{companyEmail}</Text>
+                            </Text>
+                        </Col>
+                        <Col>
+                            <Text style={{ fontWeight: 600, fontSize: 14, color: accentColor }}>
+                                | <Text style={{ color: secondaryColor, fontWeight: 700 }}>{companyPhone}</Text>
+                            </Text>
+                        </Col>
+                    </Row>
+                </Footer>
             }
+
             width={700} // modal width
             centered
             title={null}
