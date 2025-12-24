@@ -62,7 +62,7 @@ export default function RoleCard(props) {
                     position: 'sticky',
                     top: 0,
                     background: whiteColor,
-                    zIndex: 1,
+                    zIndex: 10,
                     borderBottom: `5px dotted ${bulletColor}80`,
                 },
                 body: {
