@@ -155,6 +155,8 @@ export default function Headers() {
                                 cursor: 'pointer',
                                 backgroundColor: selectedKey === item.key ? hexToRgba(primaryColor, 0.2) : 'transparent',
                                 borderBottom: `1px solid ${accentColor}80`,
+                                borderRadius: 8, // <-- Add this line for rounded corners
+                                margin: '4px 0', // optional: small gap between items
                             }}
                         >
                             <span
@@ -172,6 +174,7 @@ export default function Headers() {
                     ))}
                 </div>
             </ClientDrawer>
+
         </Header>
     );
 }
