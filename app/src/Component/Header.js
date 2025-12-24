@@ -168,13 +168,12 @@ export default function Headers() {
                                 {item.label}
                             </span>
                             {selectedKey === item.key && (
-                                <CiSquareCheck style={{ color: secondaryColor, fontSize: 16, fontWeight: 600 }} />
+                                <CiSquareCheck style={{ color: secondaryColor, fontSize: 20, strokeWidth: 1.5 }} />
                             )}
                         </div>
                     ))}
                 </div>
             </ClientDrawer>
-
         </Header>
     );
 }
