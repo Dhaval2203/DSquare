@@ -1,8 +1,8 @@
 'use client';
 
-import { Card, Col, Modal, Row, Typography } from 'antd';
+import { Col, Modal, Row, Typography } from 'antd';
 import { accentColor, primaryColor, secondaryColor, secondaryTextColor, whiteColor } from '../Utils/Colors';
-import { companyEmail, companyPhone, DSquareIconForCareerPage } from '../Utils/Const.js';
+import { companyEmail, companyPhone } from '../Utils/Const.js';
 import RoleCard from './RoleCard';
 const { Title, Paragraph, Text } = Typography;
 
@@ -10,46 +10,6 @@ export default function ApplyJobModal(props) {
     const { open, onClose, selectedRole } = props;
 
     if (!selectedRole) return null;
-
-    const renderListWithBullets = (items, color, secondaryColorCode) => (
-        <ul style={{ paddingLeft: 0, margin: 0, listStyle: 'none' }}>
-            {items.map((item, idx) => (
-                <li
-                    key={idx}
-                    style={{
-                        display: "flex",
-                        alignItems: "center",
-                        marginBottom: 10,
-                        color: secondaryTextColor,
-                    }}
-                >
-                    <div
-                        style={{
-                            width: 20,
-                            height: 20,
-                            borderRadius: '50%',
-                            backgroundColor: secondaryColorCode + '20',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            marginRight: 10,
-                            flexShrink: 0,
-                        }}
-                    >
-                        <DSquareIconForCareerPage
-                            style={{
-                                width: 18,
-                                height: 18,
-                                color: color,
-                            }}
-                        />
-                    </div>
-
-                    <span style={{ lineHeight: 1.4 }}>{item}</span>
-                </li>
-            ))}
-        </ul>
-    );
 
     return (
         <Modal
