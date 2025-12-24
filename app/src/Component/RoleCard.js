@@ -13,8 +13,8 @@ export default function RoleCard(props) {
                 <li
                     key={idx}
                     style={{
-                        display: "flex",
-                        alignItems: "center",
+                        display: 'flex',
+                        alignItems: 'center',
                         marginBottom: 10,
                         color: secondaryTextColor,
                     }}
@@ -57,18 +57,20 @@ export default function RoleCard(props) {
                 flexDirection: 'column',
                 overflow: 'hidden',
             }}
-            bodyStyle={{
-                padding: 16,
-                overflowY: 'auto',
-                flex: 1,
-                backgroundColor: backgroundColor || whiteColor,
-            }}
-            headStyle={{
-                position: 'sticky',
-                top: 0,
-                background: whiteColor,
-                zIndex: 1,
-                borderBottom: `5px dotted ${bulletColor}80`,
+            styles={{
+                header: {
+                    position: 'sticky',
+                    top: 0,
+                    background: whiteColor,
+                    zIndex: 1,
+                    borderBottom: `5px dotted ${bulletColor}80`,
+                },
+                body: {
+                    padding: 16,
+                    overflowY: 'auto',
+                    flex: 1,
+                    backgroundColor: backgroundColor || whiteColor,
+                },
             }}
         >
             {renderListWithBullets(items, bulletColor, titleColor)}

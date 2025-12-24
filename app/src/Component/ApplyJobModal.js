@@ -69,7 +69,7 @@ export default function ApplyJobModal(props) {
                     }}
                 >
                     <Text style={{ fontWeight: 600, fontSize: 14, color: accentColor }}>
-                        Apply At: <span style={{ color: primaryColor, fontWeight: 700 }}>{companyEmail} </span>
+                        Apply : <span style={{ color: primaryColor, fontWeight: 700 }}>{companyEmail} </span>
                         | <span style={{ color: secondaryColor, fontWeight: 700 }}>{companyPhone}</span>
                     </Text>
                 </div>

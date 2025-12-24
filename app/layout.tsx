@@ -6,7 +6,7 @@ import AntdRegistry from "./antd-registry";
 const inter = Inter({
 	subsets: ["latin"],
 	variable: "--font-inter",
-	display: "swap", // IMPORTANT for FOUC
+	display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang="en">
+		<html lang="en" suppressHydrationWarning>
 			<body className={`${inter.variable} antialiased`}>
 				<AntdRegistry>
 					{children}

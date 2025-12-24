@@ -29,20 +29,20 @@ export const clientReviews = [{
     text: "Working with D Square was a game-changer. Their creative solutions and timely delivery helped us scale our operations efficiently.",
     name: "Priya Nair",
     role: "Product Manager",
-},
-{
+}, {
     text: "We partnered with D Square for a complex software integration, and they delivered flawlessly. Communication and execution were top-notch.",
     name: "Arjun Mehta",
     role: "Operations Lead",
-}, {
-    text: "D Square’s team exceeded our expectations in both quality and speed. Their innovative approach helped us stay ahead in the market.",
-    name: "Sneha Gupta",
-    role: "Chief Technology Officer",
-}, {
-    text: "Exceptional experience with D Square! They are reliable, creative, and always focused on delivering measurable results.",
-    name: "Karan Patel",
-    role: "Head of Digital Transformation",
-}
+},
+    //  {
+    //     text: "D Square’s team exceeded our expectations in both quality and speed. Their innovative approach helped us stay ahead in the market.",
+    //     name: "Sneha Gupta",
+    //     role: "Chief Technology Officer",
+    // }, {
+    //     text: "Exceptional experience with D Square! They are reliable, creative, and always focused on delivering measurable results.",
+    //     name: "Karan Patel",
+    //     role: "Head of Digital Transformation",
+    // }
 ];
 
 export const softwareDevelopmentProcessSteps = [
