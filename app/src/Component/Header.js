@@ -5,6 +5,7 @@ import { Button, Layout } from 'antd';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { TiThMenuOutline } from "react-icons/ti";
+import { CiSquareCheck } from "react-icons/ci";
 import { accentColor, primaryColor, secondaryColor, whiteColor } from '../Utils/Colors';
 import { menuItems } from '../Utils/Const';
 import { scrollToSection } from '../Utils/Scroll';
@@ -20,6 +21,14 @@ const ClientDrawer = dynamic(
     () => import('antd').then((m) => m.Drawer),
     { ssr: false }
 );
+
+// Utility function to convert hex color to rgba with opacity
+const hexToRgba = (hex, opacity = 0.2) => {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+};
 
 export default function Headers() {
     const [selectedKey, setSelectedKey] = useState('home');
@@ -81,10 +90,10 @@ export default function Headers() {
                 background: whiteColor,
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'space-between', // ensures spacing between logo and menu/button
+                justifyContent: 'space-between',
                 padding: '0 24px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
-                height: 80, // increased height for better UI
+                height: 80,
             }}
         >
             {/* Logo */}
@@ -120,8 +129,8 @@ export default function Headers() {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        padding: 0,          // remove extra padding
-                        height: '100%',      // make button take full height of parent
+                        padding: 0,
+                        height: '100%',
                         lineHeight: 1,
                     }}
                 />
@@ -133,13 +142,35 @@ export default function Headers() {
                 open={drawerOpen}
                 onClose={() => setDrawerOpen(false)}
             >
-                <ClientMenu
-                    mode="vertical"
-                    className="mobile-menu"
-                    selectedKeys={[selectedKey]}
-                    onClick={handleMenuClick}
-                    items={menuItems}
-                />
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+                    {menuItems.map((item) => (
+                        <div
+                            key={item.key}
+                            onClick={() => handleMenuClick({ key: item.key })}
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                padding: '12px 16px',
+                                cursor: 'pointer',
+                                backgroundColor: selectedKey === item.key ? hexToRgba(primaryColor, 0.2) : 'transparent',
+                                borderBottom: `1px solid ${accentColor}80`,
+                            }}
+                        >
+                            <span
+                                style={{
+                                    color: selectedKey === item.key ? secondaryColor : primaryColor,
+                                    fontWeight: selectedKey === item.key ? 600 : 400,
+                                }}
+                            >
+                                {item.label}
+                            </span>
+                            {selectedKey === item.key && (
+                                <CiSquareCheck style={{ color: secondaryColor, fontSize: 16, fontWeight: 600 }} />
+                            )}
+                        </div>
+                    ))}
+                </div>
             </ClientDrawer>
         </Header>
     );
