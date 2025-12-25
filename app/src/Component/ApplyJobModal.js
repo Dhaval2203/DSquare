@@ -39,8 +39,7 @@ export default function ApplyJobModal(props) {
                     </Row>
                 </Footer>
             }
-
-            width={700} // modal width
+            width={700}
             centered
             title={null}
             closeIcon={
@@ -74,11 +73,11 @@ export default function ApplyJobModal(props) {
                         letterSpacing: '0.3px',
                         lineHeight: 1.3,
                         background: `linear-gradient(
-                            90deg,
-                            ${primaryColor} 0%,
-                            ${secondaryColor} 50%,
-                            ${primaryColor} 100%
-                        )`,
+                                90deg,
+                                ${primaryColor} 0%,
+                                ${secondaryColor} 50%,
+                                ${primaryColor} 100%
+                            )`,
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
                     }}
